@@ -139,7 +139,7 @@ public class BattleManager : MonoBehaviour
         {
             DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
             currentOpponentLinkemon.OnDead();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
             currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
             currentOpponentLinkemon = null;
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();

@@ -124,11 +124,13 @@ public class LinkemonTrainer : MonoBehaviour
         plTrainer.AddLinkemon(rewardLinkemon);
         plTrainer.ResetAllLinkemon();
         DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
+        yield return new WaitForSeconds(0.5f);
         while (!Input.GetKeyDown(KeyCode.F))
         {
             yield return null;
         }
         DialogueManager.instance.DestroyMessage();
+        plTrainer.GetComponent<PlayerController2D>().CanMove = true;
     }
     public List<Linkemon> GetLinkemonList()
     {
