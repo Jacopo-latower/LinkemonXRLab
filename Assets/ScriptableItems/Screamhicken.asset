@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Screamhicken
+  m_EditorClassIdentifier: 
+  lkName: Screamhicken
+  battleIcon: {fileID: 21300000, guid: c9b9b8e1ce1098f41bcdc327584b5c9e, type: 3}
+  verse: {fileID: 8300000, guid: eb48c77bc8fb9a447920aace8cf2ff5b, type: 3}
+  lType: 1
+  weaknessType: 0
+  attacks:
+  - {fileID: 11400000, guid: 4d9cc683c0230494fbe5c3dabb4a60cc, type: 2}
+  startingLife: 50
+  startingSpeed: 50

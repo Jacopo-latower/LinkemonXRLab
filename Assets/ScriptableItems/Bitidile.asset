@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Bitidile
+  m_EditorClassIdentifier: 
+  lkName: Bitidile
+  battleIcon: {fileID: 21300000, guid: 9fca3826822e5a741959cc2707c4215d, type: 3}
+  lType: 3
+  weaknessType: 4
+  attacks:
+  - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
+  startingLife: 100
+  startingSpeed: 50
