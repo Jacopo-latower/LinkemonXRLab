@@ -11,6 +11,7 @@ public class BattleMenu : MonoBehaviour
     [SerializeField] private GameObject backpackMenuButton;
 
     Linkemon currentLinkemon;
+    bool antiSpamFlag = false;
     private void Start()
     {
         currentLinkemon = BattleManager.instance.currentPlayerLinkemon;
@@ -33,7 +34,7 @@ public class BattleMenu : MonoBehaviour
     public void OnPlayerAttack(int attackIndex)
     {
         //UI On Click
-        Debug.Log(attackIndex);
+        Debug.Log("Attacking");
         BattleManager.instance.OnPlayerAttack(attackIndex);
         
     }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c1a4fdf4c5bbb14eb4c4f14f0d42cf5, type: 3}
-  m_Name: Pistolacqua
+  m_Name: SorpreDenti
   m_EditorClassIdentifier: 
-  attackName: Pistolacqua
-  attackGenre: 3
-  attackType: 3
-  value: 20
-  attackSpeed: 20
+  attackName: Sorpredenti
+  attackGenre: 0
+  attackType: 7
+  value: 45
+  attackSpeed: 10
   strikesNum: 1
-  successValue: 0.7
+  successValue: 0.36

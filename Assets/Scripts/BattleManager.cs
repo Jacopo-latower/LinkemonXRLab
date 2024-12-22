@@ -29,6 +29,7 @@ public class BattleManager : MonoBehaviour
     public GameObject battleStartGlow;
     public GameObject battleGroup;
     public GameObject attacksMenu;
+    public GameObject linkemonListContainerPl;
 
     [Header("Current Linkémon")]
     public Linkemon currentPlayerLinkemon;
@@ -36,6 +37,7 @@ public class BattleManager : MonoBehaviour
 
     [Header("UI prefabs")]
     public GameObject linkeballSprite;
+    public GameObject linkemonUIRowPrefab;
 
     [Header("Audios")]
     public AudioSource battleMusic;
@@ -57,6 +59,11 @@ public class BattleManager : MonoBehaviour
        for (int i = 0; i < plLmNum; i++)
         {
             Instantiate(linkeballSprite, linkemonNumberContainerPl.transform);
+            Linkemon lk = player.GetComponent<LinkemonTrainer>().GetLinkemonList()[i];
+            GameObject row = Instantiate(linkemonUIRowPrefab, linkemonListContainerPl.transform);
+            row.GetComponent<LinkemonUIRow>().SetIcon(lk.battleIcon);
+            row.GetComponent<LinkemonUIRow>().SetName(lk.linkemonName);
+            row.GetComponent<LinkemonUIRow>().linkemon = lk.gameObject;
         }
        
         //Set Opponent Icon
@@ -65,9 +72,10 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < oppoLmNum; i++)
         {
             Instantiate(linkeballSprite, linkemonNumberContainerOpp.transform);
+            
         }
         currentOpponent = opponent.gameObject;
-        //Start Music
+
         //TODO: starting sequence
         battleGroup.SetActive(true);
         StartCoroutine(BattleStartSequence());
@@ -94,18 +102,35 @@ public class BattleManager : MonoBehaviour
         }
 
     }
+    public IEnumerator ChangeLinkemonAction(Linkemon lk)
+    {
+        linkemonListContainerPl.SetActive(false);
+        if (currentPlayerLinkemon.linkemonName == lk.linkemonName)
+            yield break;
 
+        yield return StartCoroutine(ChangePlayerLinkemon(lk));
+        yield return HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon);
+
+    }
     //Brutto vero... Da cambiare nel tempo che così fa vomitare
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second, int secondAttackIndex)
     {
         #region HANDLE ATTACK 1
         //Success Calc
         //TODO:
-
+        bool success = CalculateSuccess(first, firstAttackIndex, second);
         DialogueManager.instance.ShowMessage(first.linkemonName + " usa " + first.attackList[firstAttackIndex].attackName + "!");
-
-        //AttackHandling
-        yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+        yield return new WaitForSeconds(1.5f);
+        if (success)
+        {
+            //AttackHandling
+            yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+        }
+        else
+        {
+            DialogueManager.instance.ShowMessage(first.linkemonName + " fallisce!");
+            yield return new WaitForSeconds(1.5f);
+        }
         #endregion
 
         #region CHECK LINKEMON
@@ -120,7 +145,7 @@ public class BattleManager : MonoBehaviour
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach(Linkemon l in list)
             {
-                if (l.CurrentLife >= 0)
+                if (l.CurrentLife > 0)
                     yield return StartCoroutine(ChangeOpponentLinkemon(l));
                 yield return null;
             }
@@ -153,11 +178,22 @@ public class BattleManager : MonoBehaviour
         }
         #endregion
 
+        yield return new WaitForSeconds(1f);
+
         #region HANDLE ATTACK 2
         DialogueManager.instance.ShowMessage(second.linkemonName + " usa " + second.attackList[secondAttackIndex].attackName + "!");
-
-        //AttackHandling
-        yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
+        yield return new WaitForSeconds(1.5f);
+        bool success2 = CalculateSuccess(second, secondAttackIndex, first);
+        if (success2)
+        {
+            //AttackHandling
+            yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
+        }
+        else
+        {
+            DialogueManager.instance.ShowMessage(second.linkemonName + " fallisce! ");
+            yield return new WaitForSeconds(1.5f);
+        }
         #endregion
 
         #region CHECK LINKEMON
@@ -206,8 +242,96 @@ public class BattleManager : MonoBehaviour
         #endregion
 
         //Keep going with the next turn
+        Debug.Log("Turn End");
         DialogueManager.instance.DestroyMessage();
         attacksMenu.SetActive(true);
+    }
+
+    //IF Player does not attack, only the opponent attacks
+    IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second)
+    {
+        #region HANDLE ATTACK 1
+        //Success Calc
+        //TODO:
+        bool success = CalculateSuccess(first, firstAttackIndex, second);
+        DialogueManager.instance.ShowMessage(first.linkemonName + " usa " + first.attackList[firstAttackIndex].attackName + "!");
+        yield return new WaitForSeconds(1f);
+        if (success)
+        {
+            //AttackHandling
+            yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+        }
+        else
+        {
+            DialogueManager.instance.ShowMessage(first.linkemonName + " fallisce!");
+            yield return new WaitForSeconds(1.5f);
+        }
+        #endregion
+
+        #region CHECK LINKEMON
+        //Check Oppo Linkemon state: if dead, change linkemon and exit
+        if (CheckOpponentLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
+            currentOpponentLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon = null;
+            List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach (Linkemon l in list)
+            {
+                if (l.CurrentLife > 0)
+                    yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentOpponentLinkemon == null)
+                OnPlayerVictory();
+
+            yield break;
+        }
+        //Check Player Linkemon state: if dead, change linkemon and exit
+        if (CheckPlayerLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
+            currentPlayerLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon = null;
+            List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach (Linkemon l in list)
+            {
+                if (l.CurrentLife >= 0)
+                    yield return StartCoroutine(ChangePlayerLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentPlayerLinkemon == null)
+                OnPlayerDefeat();
+
+            yield break;
+        }
+        #endregion
+
+        yield return new WaitForSeconds(0.7f);
+        
+
+        //Keep going with the next turn
+        Debug.Log("Turn End");
+        DialogueManager.instance.DestroyMessage();
+        attacksMenu.SetActive(true);
+    }
+
+    bool CalculateSuccess(Linkemon first, int atkIndex, Linkemon second)
+    {
+        int elusion = second.CurrentElusion;
+        LinkemonAttack atk = first.attackList[atkIndex];
+
+        float prob = atk.successValue - ((float)elusion / 100f);
+
+        float random = Random.Range(0f, 1f);
+
+        return random < prob;
     }
 
     bool CheckPlayerLinkemon()
@@ -252,28 +376,56 @@ public class BattleManager : MonoBehaviour
             //DMG Calculation
             int dmg = attack.value;
 
-            if (defType == type) //Non molto efficace...
+            string message = "";
+            string message2 = "";
+
+            if (defType == type)
+            { //Non molto efficace...
                 dmg /= 2;
-            else if (defender.weakness == type) //Superefficace!
+                message = "Non è molto efficace...";
+            }
+            else if (defender.weakness == type)
+            { //Superefficace!
                 dmg *= 2;
+                message = "È superefficace!";
+            }
 
             //Critical Hit doubling
             int num = Random.Range(0, 20);
             if (num == 5)
+            {
+                message2 = "Brutto Colpo!";
                 dmg *= 2;
+            }
 
             defender.ReceiveDamage(dmg);
+
+            if (message != "")
+            {
+                DialogueManager.instance.ShowMessage(message);
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            if (message2 != "")
+            {
+                DialogueManager.instance.ShowMessage(message2);
+                yield return new WaitForSeconds(1.5f);
+            }
+
         }
-    }
-
-
-    void OnPlayerVictory()
-    {
-        //TODO:reset everything and exit battle
-    }
-    void OnPlayerDefeat()
-    {
-        //TODO:game over
+        else if(genre == LinkemonAttack.LinkemonAttackGenre.Elusion)
+        {
+            attacker.CurrentElusion += attack.value;
+            DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
+            yield return new WaitForSeconds(1.5f);
+        }
+        else if (genre == LinkemonAttack.LinkemonAttackGenre.Speed)
+        {
+            attacker.CurrentSpeed += attack.value;
+            DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
+            yield return new WaitForSeconds(1.5f);
+        }
+        Debug.Log("Attack Finished");
     }
 
     IEnumerator ChangePlayerLinkemon(Linkemon linkemon)
@@ -283,9 +435,12 @@ public class BattleManager : MonoBehaviour
         {
             //TODO:
             currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
+            DialogueManager.instance.ShowMessage("Rientra " + currentPlayerLinkemon.linkemonName + "!");
             currentPlayerLinkemon = null;
         }
+        yield return new WaitForSeconds(0.5f);
         //Appear current Likemon
+        DialogueManager.instance.ShowMessage("VAI! " + linkemon.linkemonName + "!");
         linkeballContainerPl.SetActive(true);
         yield return new WaitForSeconds(1f);
         linkeballContainerPl.SetActive(false);
@@ -373,6 +528,32 @@ public class BattleManager : MonoBehaviour
         isStartingSequenceFinished = true;
     }
 
+    IEnumerator BattleEndSequence()
+    {
+        //Play Victory Music
+        //TODO:
+        DialogueManager.instance.ShowMessage(currentOpponent.GetComponent<LinkemonTrainer>().endBattledialogue);
+        yield return StartCoroutine(FadeIn(opponentContainer.GetComponent<CanvasGroup>(), 1f));
+        yield return new WaitForSeconds(1.5f);
+        attacksMenu.SetActive(false);
+        yield return StartCoroutine(FadeOut(battleFieldContainer.GetComponent<CanvasGroup>(), 1.5f));
+        battleGroup.SetActive(false);
+        linkemonNumberContainerPl.SetActive(true);
+        linkemonNumberContainerOpp.SetActive(true);
+        currentOpponent.GetComponent<LinkemonTrainer>().OnDefeat();
+    }
+
+    void OnPlayerVictory()
+    {
+        //TODO:reset everything and exit battle
+
+        Debug.Log("PLAYER WINS!");
+        StartCoroutine(BattleEndSequence());
+    }
+    void OnPlayerDefeat()
+    {
+        //TODO:game over
+    }
     IEnumerator SpawnMessageUIForTime(string text, float time)
     {
         messagePanel.SetActive(true);

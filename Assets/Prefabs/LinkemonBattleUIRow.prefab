@@ -327,6 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2600faeb1f383614d82ab9e7f27df7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkemon: {fileID: 0}
+  lName: {fileID: 5543476760806664204}
+  lIcon: {fileID: 676949355934301451}
 --- !u!114 &7817544558094060118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,4 +373,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1617901093380579957}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4484084907078897423}
+        m_TargetAssemblyTypeName: LinkemonUIRow, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

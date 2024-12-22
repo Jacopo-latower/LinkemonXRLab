@@ -19,6 +19,7 @@ public class Linkemon : MonoBehaviour
     [SerializeField] private GameObject healthBarUI;
     [SerializeField] private GameObject nameUI;
     [SerializeField] private GameObject typeUI;
+    [SerializeField] private GameObject lifeNumUI;
     [SerializeField] private Animator lAnimator;
     [SerializeField] private AudioClip linkemonVerse;
 
@@ -29,6 +30,7 @@ public class Linkemon : MonoBehaviour
     public Dictionary<string, int> attacksMap; //Fa schifo ma è troppo lungo fare tutto bene
 
     private int startingLife;
+    private int startingSpeed;
     private int currentLife;
     private int currentSpeed;
     private int currentElusion;
@@ -46,7 +48,8 @@ public class Linkemon : MonoBehaviour
         linkemonName = ls.name;
         startingLife = ls.startingLife;
         currentLife = startingLife;
-        currentSpeed = ls.startingSpeed;
+        startingSpeed = ls.startingSpeed;
+        currentSpeed = startingSpeed;
         currentElusion = 0;
         battleIcon = ls.battleIcon;
         lType = ls.lType;
@@ -66,15 +69,21 @@ public class Linkemon : MonoBehaviour
 
         if (healthBarUI != null)
             healthBarUI.SetActive(false);
-
-       nameUI.GetComponent<TextMeshProUGUI>().text = linkemonName;
-       typeUI.GetComponent<TextMeshProUGUI>().text = lType.ToString();
+        
+        nameUI.GetComponent<TextMeshProUGUI>().text = linkemonName;
+        typeUI.GetComponent<TextMeshProUGUI>().text = lType.ToString();
+        lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
     }
 
     public void OnEnterBattle()
     {
         battleImageUI.gameObject.SetActive(true);
         healthBarUI.SetActive(true);
+        currentElusion = 0;
+        currentSpeed = startingSpeed;
+
+        //Da togliere se si vuole fare poi più elaborato con pozioni, items etc.
+        currentLife = startingLife;
 
         if (linkemonVerse != null)
             SoundManager.instance.PlayAudio(linkemonVerse);
@@ -110,9 +119,11 @@ public class Linkemon : MonoBehaviour
 
     public void ReceiveDamage(int dmg)
     {
-        float value = currentLife / startingLife;
-        healthBarUI.GetComponent<Slider>().value = value;
         currentLife -= dmg;
+        float value = (float)currentLife / startingLife;
+        Debug.Log("Value of healthbar " + value);
+        Debug.Log("Life of " + linkemonName + ": " + currentLife);
+        healthBarUI.GetComponent<Slider>().value = value;
     }
     public void OnDead()
     {

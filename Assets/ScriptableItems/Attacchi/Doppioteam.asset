@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c1a4fdf4c5bbb14eb4c4f14f0d42cf5, type: 3}
-  m_Name: SorpreDenti
+  m_Name: Doppioteam
   m_EditorClassIdentifier: 
-  attackName: Sorpredenti
-  attackGenre: 0
-  attackType: 7
-  value: 50
-  attackSpeed: 10
+  attackName: Doppioteam
+  attackGenre: 2
+  attackType: 9
+  value: 10
+  attackSpeed: 30
   strikesNum: 1
-  successValue: 0.3
+  successValue: 0.63

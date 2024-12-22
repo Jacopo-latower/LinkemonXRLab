@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class LinkemonUIRow : MonoBehaviour
 {
-    private TextMeshProUGUI lName;
-    private Image lIcon;
+    public GameObject linkemon;
+    public TextMeshProUGUI lName;
+    public Image lIcon;
     private TMP_InputField lOrder;
 
     public string LOrder { get => lOrder.text; set => lOrder.text = value; }
@@ -20,6 +21,11 @@ public class LinkemonUIRow : MonoBehaviour
     public void SetIcon(Sprite sprite)
     {
         lIcon.sprite = sprite;
+    }
+
+    public void OnClick()
+    {
+        StartCoroutine(BattleManager.instance.ChangeLinkemonAction(linkemon.GetComponent<Linkemon>()));
     }
 
 }

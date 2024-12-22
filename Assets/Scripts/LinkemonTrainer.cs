@@ -5,6 +5,7 @@ using UnityEngine;
 public class LinkemonTrainer : MonoBehaviour
 {
     public GameObject LinkemonPrefab;
+    public GameObject rewardLinkemon;
 
     [SerializeField] private Sprite trainerIcon;
     [SerializeField] private string trainerName;
@@ -14,6 +15,10 @@ public class LinkemonTrainer : MonoBehaviour
 
     [TextArea(20, 30)]
     [SerializeField] private string dialogue;
+    [TextArea(20, 30)]
+    public string endBattledialogue;
+    [TextArea(20, 30)]
+    public string rewardDialogue;
 
     public List<Linkemon> currentInstantiatedLinkemons;
     public Transform linkemonListParent;
@@ -53,6 +58,20 @@ public class LinkemonTrainer : MonoBehaviour
         }
     }
 
+    public void AddLinkemon(GameObject lk)
+    {
+        lk.transform.SetParent(linkemonListParent, false);
+        lk.GetComponent<Linkemon>().Trainer = this;
+        currentInstantiatedLinkemons.Add(lk.GetComponent<Linkemon>());
+    }
+
+    public void ResetAllLinkemon()
+    {
+        foreach (Linkemon l in GetLinkemonList())
+        {
+            l.TotalRecharge();
+        }
+    }
     IEnumerator StartBattle(GameObject player)
     {
         exclamationMarkRef.SetActive(true);
@@ -84,6 +103,30 @@ public class LinkemonTrainer : MonoBehaviour
         DialogueManager.instance.DestroyMessage();
 
         BattleManager.instance.StartBattle(this);
+    }
+
+    public void OnDefeat()
+    {
+        StartCoroutine(OnDefeatCoroutine());
+    }
+
+    IEnumerator OnDefeatCoroutine()
+    {
+        DialogueManager.instance.ShowMessage(rewardDialogue);
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;
+        }
+        //We reward the player with a Linkemon and a ricarica tot
+        LinkemonTrainer plTrainer = GameObject.FindGameObjectWithTag("Player").GetComponent<LinkemonTrainer>();
+        plTrainer.AddLinkemon(rewardLinkemon);
+        plTrainer.ResetAllLinkemon();
+        DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.GetComponent<Linkemon>().linkemonName + "!");
+        while (!Input.GetKeyDown(KeyCode.F))
+        {
+            yield return null;
+        }
+        DialogueManager.instance.DestroyMessage();
     }
     public List<Linkemon> GetLinkemonList()
     {

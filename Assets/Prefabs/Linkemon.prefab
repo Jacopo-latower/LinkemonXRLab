@@ -727,6 +727,7 @@ MonoBehaviour:
   healthBarUI: {fileID: 7319353643846201622}
   nameUI: {fileID: 8852923360118282222}
   typeUI: {fileID: 2190851533103470389}
+  lifeNumUI: {fileID: 411447713466804196}
   lAnimator: {fileID: 1484884421084365805}
   linkemonVerse: {fileID: 0}
   lType: 0
