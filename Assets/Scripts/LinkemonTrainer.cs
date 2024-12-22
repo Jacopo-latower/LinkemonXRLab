@@ -5,7 +5,7 @@ using UnityEngine;
 public class LinkemonTrainer : MonoBehaviour
 {
     public GameObject LinkemonPrefab;
-    public GameObject rewardLinkemon;
+    public LinkemonScriptable rewardLinkemon;
 
     [SerializeField] private Sprite trainerIcon;
     [SerializeField] private string trainerName;
@@ -58,11 +58,13 @@ public class LinkemonTrainer : MonoBehaviour
         }
     }
 
-    public void AddLinkemon(GameObject lk)
+    public void AddLinkemon(LinkemonScriptable lk)
     {
-        lk.transform.SetParent(linkemonListParent, false);
-        lk.GetComponent<Linkemon>().Trainer = this;
-        currentInstantiatedLinkemons.Add(lk.GetComponent<Linkemon>());
+        GameObject linkemonInstance = Instantiate(LinkemonPrefab, linkemonListParent);
+        Linkemon lkComponent = linkemonInstance.GetComponent<Linkemon>();
+        lkComponent.Init(lk);
+        lkComponent.Trainer = this;
+        currentInstantiatedLinkemons.Add(linkemonInstance.GetComponent<Linkemon>());
     }
 
     public void ResetAllLinkemon()
@@ -121,7 +123,7 @@ public class LinkemonTrainer : MonoBehaviour
         LinkemonTrainer plTrainer = GameObject.FindGameObjectWithTag("Player").GetComponent<LinkemonTrainer>();
         plTrainer.AddLinkemon(rewardLinkemon);
         plTrainer.ResetAllLinkemon();
-        DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.GetComponent<Linkemon>().linkemonName + "!");
+        DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
         while (!Input.GetKeyDown(KeyCode.F))
         {
             yield return null;

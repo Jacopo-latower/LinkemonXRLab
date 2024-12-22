@@ -5343,7 +5343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LinkemonPrefab: {fileID: 7144379992974809198, guid: 0c2a8184fc318ac4aa9a20f9b1570e77, type: 3}
-  rewardLinkemon: {fileID: 0}
+  rewardLinkemon: {fileID: 11400000, guid: f7334d4fe080ec1469c724ba65a8e92a, type: 2}
   trainerIcon: {fileID: 21300000, guid: a8b576ff9bd81834c8c7c3120f19ce37, type: 3}
   trainerName: MARI XR DEVELOPER
   exclamationMarkRef: {fileID: 1245382331}
@@ -5352,8 +5352,9 @@ MonoBehaviour:
   isNPC: 1
   dialogue: Ah! Sei il nuovo tesista, eh? Vediamo se hai la stoffa per diventare
     un vero XR developer!
-  endBattledialogue: 
-  rewardDialogue: 
+  endBattledialogue: Maledetto! Mi hai battuto!
+  rewardDialogue: "A quanto pare non sei male! Ti dar\xF2 il mio pollo blu come ricompensa!
+    Ma stai attento... Gli altri sono ancora pi\xF9 forti di me!"
   currentInstantiatedLinkemons: []
   linkemonListParent: {fileID: 984915150}
 --- !u!4 &1014084003
