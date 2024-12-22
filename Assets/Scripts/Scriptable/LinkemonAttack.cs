@@ -14,5 +14,6 @@ public class LinkemonAttack : ScriptableObject
     public int value = 10;
     public int attackSpeed = 10;
     public int strikesNum = 1;
+    public float successValue = 1;
 
 }

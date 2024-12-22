@@ -1621,7 +1621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LinkemonPrefab: {fileID: 7144379992974809198, guid: 0c2a8184fc318ac4aa9a20f9b1570e77, type: 3}
   trainerIcon: {fileID: 21300000, guid: 8c8c11baaf83f1a40a616ba104f6284f, type: 3}
-  trainerName: 
+  trainerName: Player
   exclamationMarkRef: {fileID: 0}
   startingLinkemonScriptables:
   - {fileID: 11400000, guid: c0bfa6d936327b149a0053428744b8fe, type: 2}
@@ -2040,8 +2040,9 @@ GameObject:
   - component: {fileID: 410157953}
   - component: {fileID: 410157952}
   - component: {fileID: 410157951}
+  - component: {fileID: 410157954}
   m_Layer: 5
-  m_Name: Menu
+  m_Name: BattleMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,6 +2134,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410157949}
   m_CullTransparentMesh: 1
+--- !u!114 &410157954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410157949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbc62b5ed6a60db42a47ed185aed1db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacksUIButtons:
+  - {fileID: 1150249487}
+  - {fileID: 202715239}
+  - {fileID: 1441915923}
+  - {fileID: 781412718}
+  linkemonMenuButton: {fileID: 1776866515}
+  backpackMenuButton: {fileID: 770013841}
 --- !u!1 &435542321
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,6 +2376,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 501124177}
+  - component: {fileID: 501124179}
+  - component: {fileID: 501124178}
   m_Layer: 5
   m_Name: LinkemonContainer
   m_TagString: Untagged
@@ -2382,6 +2404,26 @@ RectTransform:
   m_AnchoredPosition: {x: -7.4987, y: 20.347}
   m_SizeDelta: {x: 379.2388, y: 423.74}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &501124178
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501124176}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!222 &501124179
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501124176}
+  m_CullTransparentMesh: 1
 --- !u!1 &503633056
 GameObject:
   m_ObjectHideFlags: 0
@@ -3223,7 +3265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &594868861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3485,7 +3527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 317.1721, y: -137.3086}
+  m_AnchoredPosition: {x: 317.1721, y: -127.5107}
   m_SizeDelta: {x: 634.3442, y: 251.7787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &655510148
@@ -3726,7 +3768,7 @@ GameObject:
   - component: {fileID: 770013844}
   - component: {fileID: 770013843}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: BackpackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4356,6 +4398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 835498408}
+  - component: {fileID: 835498409}
   m_Layer: 5
   m_Name: LinkemonContainer
   m_TagString: Untagged
@@ -4373,15 +4416,27 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 339916688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 177.87, y: -126}
+  m_AnchoredPosition: {x: 175, y: -123}
   m_SizeDelta: {x: 369.44104, y: 379.2389}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.49999997, y: 0.5}
+--- !u!225 &835498409
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835498407}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!4 &842338081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3369633117018036772, guid: 5bcb405f7b8b383498e5cd7bebb7ac78, type: 3}
@@ -4699,6 +4754,7 @@ MonoBehaviour:
   linkeballContainerPl: {fileID: 33855771}
   battleStartGlow: {fileID: 1395133390}
   battleGroup: {fileID: 68420668}
+  attacksMenu: {fileID: 410157949}
   currentPlayerLinkemon: {fileID: 0}
   currentOpponentLinkemon: {fileID: 0}
   linkeballSprite: {fileID: 2435711313765170549, guid: 4cd23020adce0f64b86c3a52ce88a488, type: 3}
@@ -7663,7 +7719,7 @@ GameObject:
   - component: {fileID: 1776866518}
   - component: {fileID: 1776866517}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LinkemonMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,30 +6,40 @@ using UnityEngine.UI;
 
 public class Linkemon : MonoBehaviour
 {
-    public enum LinkemonType { Dark, Psychic, Fire, Water, Electric, Grass, Flying, Metal, Fighting}
+    public enum LinkemonType { Dark, Psychic, Fire, Water, Electric, Grass, Flying, Metal, Fighting, Normal}
 
     public string linkemonName;
     public Sprite battleIcon;
+    private LinkemonTrainer trainer;
+
+    public LinkemonTrainer Trainer { set => trainer = value; get => trainer; }
 
     [Header("References")]
     [SerializeField] private Image battleImageUI;
-    [SerializeField] private GameObject healthBarGroup;
+    [SerializeField] private GameObject healthBarUI;
+    [SerializeField] private GameObject nameUI;
+    [SerializeField] private GameObject typeUI;
     [SerializeField] private Animator lAnimator;
     [SerializeField] private AudioClip linkemonVerse;
 
     [Header("Stats")]
     public LinkemonType lType;
     public LinkemonType weakness; //anche questo fa schifo e dovrebbe stare dentro un fantomatico "LinkemonType" object che non esiste  ma troppo lungo
+    public List<LinkemonAttack> attackList;
     public Dictionary<string, int> attacksMap; //Fa schifo ma è troppo lungo fare tutto bene
 
     private int startingLife;
     private int currentLife;
     private int currentSpeed;
+    private int currentElusion;
     private bool isAsleep = false;
     private bool isBurned = false;
     private bool isPoisoned = false;
     private bool isDead = false;
 
+    public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
+    public int CurrentLife { get => currentLife; set => currentLife = value; }
+    public int CurrentElusion { get => currentElusion; set => currentElusion = value; }
 
     public void Init(LinkemonScriptable ls)
     {
@@ -37,10 +47,12 @@ public class Linkemon : MonoBehaviour
         startingLife = ls.startingLife;
         currentLife = startingLife;
         currentSpeed = ls.startingSpeed;
+        currentElusion = 0;
         battleIcon = ls.battleIcon;
         lType = ls.lType;
         weakness = ls.weaknessType;
         linkemonVerse = ls.verse;
+        attackList = ls.attacks;
 
         if (lAnimator == null)
             GetComponent<Animator>();
@@ -52,48 +64,60 @@ public class Linkemon : MonoBehaviour
                 battleImageUI.sprite = battleIcon;
         }
 
-        if (healthBarGroup != null)
-            healthBarGroup.SetActive(false);
+        if (healthBarUI != null)
+            healthBarUI.SetActive(false);
 
-        healthBarGroup.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = linkemonName;
-        healthBarGroup.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = lType.ToString();
+       nameUI.GetComponent<TextMeshProUGUI>().text = linkemonName;
+       typeUI.GetComponent<TextMeshProUGUI>().text = lType.ToString();
     }
 
     public void OnEnterBattle()
     {
         battleImageUI.gameObject.SetActive(true);
-        healthBarGroup.SetActive(true);
+        healthBarUI.SetActive(true);
 
         if (linkemonVerse != null)
             SoundManager.instance.PlayAudio(linkemonVerse);
     }
 
-    public void Attack(string name, Linkemon defender)
+    //Spostato in battlemanager
+    public void Attack(Linkemon defender, int attackIndex)
     {
         LinkemonType defType = defender.lType;
-        int dmg = attacksMap[name];
 
-        if (defType == lType) //Non molto efficace...
-            dmg /= 2;
-        else if (defender.weakness == lType) //Superefficace!
-            dmg *= 2;
+        LinkemonAttack attack = attackList[attackIndex];
+        LinkemonAttack.LinkemonAttackGenre genre = attack.attackGenre;
+        LinkemonType type = attack.attackType;
 
-        //Critical Hit doubling
-        int num = Random.Range(0, 20);
-        if (num == 5)
-            dmg *= 2;
+        if (genre == LinkemonAttack.LinkemonAttackGenre.Damage)
+        {
+            //DMG Calculation
+            int dmg = attack.value;
 
-        defender.ReceiveDamage(dmg);
+            if (defType == type) //Non molto efficace...
+                dmg /= 2;
+            else if (defender.weakness == type) //Superefficace!
+                dmg *= 2;
+
+            //Critical Hit doubling
+            int num = Random.Range(0, 20);
+            if (num == 5)
+                dmg *= 2;
+
+            defender.ReceiveDamage(dmg);
+        }
     }
+
     public void ReceiveDamage(int dmg)
     {
+        float value = currentLife / startingLife;
+        healthBarUI.GetComponent<Slider>().value = value;
         currentLife -= dmg;
-        if (currentLife <= 0)
-            OnDead();
     }
     public void OnDead()
     {
         //TODO: ...
+        lAnimator.SetBool("Dead", true);
     }
 
     public void TotalRecharge()
@@ -102,6 +126,12 @@ public class Linkemon : MonoBehaviour
         isAsleep = false;
         isBurned = false;
         isPoisoned = false;
+    }
+
+    public void MirrorLinkemonIconGroup()
+    {
+        Vector3 currentScale = battleImageUI.rectTransform.localScale;
+        battleImageUI.rectTransform.localScale = new Vector3(- currentScale.x, currentScale.y, currentScale.z);
     }
 
 }

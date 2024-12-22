@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Bitidile
   battleIcon: {fileID: 21300000, guid: 9fca3826822e5a741959cc2707c4215d, type: 3}
+  verse: {fileID: 0}
   lType: 3
   weaknessType: 4
   attacks:
   - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
-  startingLife: 100
+  - {fileID: 11400000, guid: 1a08e9ca8a5c25a4ea456190fc6cf20e, type: 2}
+  - {fileID: 11400000, guid: 632ae0358afc3274db46fbaa0f555389, type: 2}
+  - {fileID: 11400000, guid: fed847f408ae30b439019223b33ae107, type: 2}
+  startingLife: 120
   startingSpeed: 50

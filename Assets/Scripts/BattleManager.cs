@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Linkemon;
 
 public class BattleManager : MonoBehaviour
 {
@@ -26,6 +28,7 @@ public class BattleManager : MonoBehaviour
     public GameObject linkeballContainerPl;
     public GameObject battleStartGlow;
     public GameObject battleGroup;
+    public GameObject attacksMenu;
 
     [Header("Current Linkémon")]
     public Linkemon currentPlayerLinkemon;
@@ -70,31 +73,232 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(BattleStartSequence());
     }
 
-    private bool isBattling = false;
-    private void Update()
+    public void OnPlayerAttack(int attackIndex)
     {
-        //Debug
-       /* if (Input.GetKeyDown(KeyCode.F) && !isBattling)
+        //Hide Menu
+        attacksMenu.SetActive(false);
+
+        //Calculate Speed
+        int totalPlayerSpeed = currentPlayerLinkemon.CurrentSpeed + currentPlayerLinkemon.attackList[attackIndex].attackSpeed;
+        int totalOppoSpeed = currentOpponentLinkemon.CurrentSpeed + currentOpponentLinkemon.attackList[attackIndex].attackSpeed;
+
+        if (totalOppoSpeed > totalPlayerSpeed) 
         {
-            isBattling = true;
-            StartBattle(testOppo);
+            //OppoAttackFirst
+            StartCoroutine(HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon, attackIndex));
         }
-       */
+        else
+        {
+            //PlayerAttackFirst
+            StartCoroutine(HandleBattle(currentPlayerLinkemon, attackIndex, currentOpponentLinkemon, Random.Range(0, 3)));
+        }
+
+    }
+
+    //Brutto vero... Da cambiare nel tempo che così fa vomitare
+    IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second, int secondAttackIndex)
+    {
+        #region HANDLE ATTACK 1
+        //Success Calc
+        //TODO:
+
+        DialogueManager.instance.ShowMessage(first.linkemonName + " usa " + first.attackList[firstAttackIndex].attackName + "!");
+
+        //AttackHandling
+        yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+        #endregion
+
+        #region CHECK LINKEMON
+        //Check Oppo Linkemon state: if dead, change linkemon and exit
+        if (CheckOpponentLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
+            currentOpponentLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon = null;
+            List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach(Linkemon l in list)
+            {
+                if (l.CurrentLife >= 0)
+                    yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentOpponentLinkemon == null)
+                OnPlayerVictory();
+
+            yield break;
+        }
+        //Check Player Linkemon state: if dead, change linkemon and exit
+        if (CheckPlayerLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
+            currentPlayerLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon = null;
+            List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach (Linkemon l in list)
+            {
+                if (l.CurrentLife >= 0)
+                    yield return StartCoroutine(ChangePlayerLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentPlayerLinkemon == null)
+                OnPlayerDefeat();
+
+            yield break;
+        }
+        #endregion
+
+        #region HANDLE ATTACK 2
+        DialogueManager.instance.ShowMessage(second.linkemonName + " usa " + second.attackList[secondAttackIndex].attackName + "!");
+
+        //AttackHandling
+        yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
+        #endregion
+
+        #region CHECK LINKEMON
+        //Check Oppo Linkemon state: if dead, change linkemon and exit
+        if (CheckOpponentLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
+            currentOpponentLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon = null;
+            List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach (Linkemon l in list)
+            {
+                if (l.CurrentLife >= 0)
+                    yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentOpponentLinkemon == null)
+                OnPlayerVictory();
+
+            yield break;
+        }
+        //Check Player Linkemon state: if dead, change linkemon and exit
+        if (CheckPlayerLinkemon())
+        {
+            DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
+            currentPlayerLinkemon.OnDead();
+            yield return new WaitForSeconds(0.5f);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon = null;
+            List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
+            foreach (Linkemon l in list)
+            {
+                if (l.CurrentLife >= 0)
+                    yield return StartCoroutine(ChangePlayerLinkemon(l));
+                yield return null;
+            }
+            //Victory if there is not a linkemon available for the opponent
+            if (currentPlayerLinkemon == null)
+                OnPlayerDefeat();
+
+            yield break;
+        }
+        #endregion
+
+        //Keep going with the next turn
+        DialogueManager.instance.DestroyMessage();
+        attacksMenu.SetActive(true);
+    }
+
+    bool CheckPlayerLinkemon()
+    {
+        if (currentPlayerLinkemon.CurrentLife <= 0f)
+            return true;
+        else
+            return false;
+    }
+
+    bool CheckOpponentLinkemon()
+    {
+        if (currentOpponentLinkemon.CurrentLife <= 0f)
+            return true;
+        else
+            return false;
+    }
+    IEnumerator AttackHandling(Linkemon attacker, Linkemon defender, int attackIndex)
+    {
+        LinkemonType defType = defender.lType;
+
+        LinkemonAttack attack = attacker.attackList[attackIndex];
+        LinkemonAttack.LinkemonAttackGenre genre = attack.attackGenre;
+        LinkemonType type = attack.attackType;
+
+        if (genre == LinkemonAttack.LinkemonAttackGenre.Damage)
+        {
+            //Animation
+            if(attacker.Trainer.name == "Player")
+                attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+            else
+                attacker.GetComponent<Animator>().SetBool("Attacking", true);
+            yield return new WaitForSeconds(0.4f);
+            if (attacker.Trainer.name == "Player")
+                attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+            else
+                attacker.GetComponent<Animator>().SetBool("Attacking", false);
+
+            defender.GetComponent<Animator>().SetBool("Damage", true);
+            yield return new WaitForSeconds(0.4f);
+            defender.GetComponent<Animator>().SetBool("Damage", false);
+            //DMG Calculation
+            int dmg = attack.value;
+
+            if (defType == type) //Non molto efficace...
+                dmg /= 2;
+            else if (defender.weakness == type) //Superefficace!
+                dmg *= 2;
+
+            //Critical Hit doubling
+            int num = Random.Range(0, 20);
+            if (num == 5)
+                dmg *= 2;
+
+            defender.ReceiveDamage(dmg);
+        }
+    }
+
+
+    void OnPlayerVictory()
+    {
+        //TODO:reset everything and exit battle
+    }
+    void OnPlayerDefeat()
+    {
+        //TODO:game over
     }
 
     IEnumerator ChangePlayerLinkemon(Linkemon linkemon)
     {
         //Disappear current linkemon
+        if (currentPlayerLinkemon != null)
+        {
+            //TODO:
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
+            currentPlayerLinkemon = null;
+        }
         //Appear current Likemon
         linkeballContainerPl.SetActive(true);
         yield return new WaitForSeconds(1f);
         linkeballContainerPl.SetActive(false);
 
-        playerLinkemonContainer.gameObject.SetActive(true);
+        playerLinkemonContainer.SetActive(true);
         //linkemon.gameObject.transform.parent = playerLinkemonContainer.transform;
         linkemon.gameObject.transform.SetParent(playerLinkemonContainer.transform, false);
         linkemon.OnEnterBattle();
 
+        attacksMenu.GetComponent<BattleMenu>().OnChangeLinkemon(linkemon);
+
+        //Non abbiamo l'icona di spalle dei linkemon perchè troppa sbatta, quindi mirroriamo e ciao
+        linkemon.MirrorLinkemonIconGroup();
         currentPlayerLinkemon = linkemon;
     }
 
@@ -104,6 +308,8 @@ public class BattleManager : MonoBehaviour
         if (currentOpponentLinkemon != null)
         {
             //TODO:
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent, false);
+            currentOpponentLinkemon = null;
         }
         //Appear current Likemon
         linkeballContainerOpp.SetActive(true);
@@ -134,12 +340,12 @@ public class BattleManager : MonoBehaviour
 
         battleStartGlow.SetActive(true);
         yield return new WaitForSeconds(2f);
-        
-        //battlefield appear
-        yield return StartCoroutine(FadeIn(battleFieldContainer.GetComponent<CanvasGroup>(), 1.5f));
 
         //Message
         DialogueManager.instance.ShowMessage(currentOpponent.GetComponent<LinkemonTrainer>().TrainerName + " vuole combattere!");
+
+        //battlefield appear
+        yield return StartCoroutine(FadeIn(battleFieldContainer.GetComponent<CanvasGroup>(), 1.5f));
 
         //TODO: change this with some animation
         yield return new WaitForSeconds(2f);
@@ -161,6 +367,8 @@ public class BattleManager : MonoBehaviour
         yield return StartCoroutine(ChangePlayerLinkemon(player.GetComponent<LinkemonTrainer>().GetLinkemonList()[0]));
 
         linkemonNumberContainerPl.SetActive(false);
+        DialogueManager.instance.DestroyMessage();
+        attacksMenu.SetActive(true);
 
         isStartingSequenceFinished = true;
     }

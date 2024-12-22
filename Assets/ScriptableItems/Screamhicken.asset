@@ -19,5 +19,8 @@ MonoBehaviour:
   weaknessType: 0
   attacks:
   - {fileID: 11400000, guid: 4d9cc683c0230494fbe5c3dabb4a60cc, type: 2}
-  startingLife: 50
+  - {fileID: 11400000, guid: f85f04f543053af458164d00b6ff1811, type: 2}
+  - {fileID: 11400000, guid: 98c3811571603c444b845519f384ccf6, type: 2}
+  - {fileID: 11400000, guid: 8beae2b55e71d9f478635df4099454ae, type: 2}
+  startingLife: 120
   startingSpeed: 50

@@ -605,7 +605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3274762311777644671}
   - component: {fileID: 5193363700690085135}
-  - component: {fileID: 1589998664462766569}
+  - component: {fileID: 6386033781525381505}
   m_Layer: 5
   m_Name: Fronticon
   m_TagString: Untagged
@@ -640,7 +640,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6631879357094110661}
   m_CullTransparentMesh: 1
---- !u!114 &1589998664462766569
+--- !u!114 &6386033781525381505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -680,6 +680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3958718641027358648}
   - component: {fileID: 8084150530533974739}
+  - component: {fileID: 1484884421084365805}
   m_Layer: 5
   m_Name: Linkemon
   m_TagString: Untagged
@@ -722,11 +723,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkemonName: 
   battleIcon: {fileID: 0}
-  battleImageUI: {fileID: 1589998664462766569}
-  healthBarGroup: {fileID: 2931538897168421151}
-  lAnimator: {fileID: 0}
+  battleImageUI: {fileID: 6386033781525381505}
+  healthBarUI: {fileID: 7319353643846201622}
+  nameUI: {fileID: 8852923360118282222}
+  typeUI: {fileID: 2190851533103470389}
+  lAnimator: {fileID: 1484884421084365805}
+  linkemonVerse: {fileID: 0}
   lType: 0
   weakness: 0
+  attackList: []
+--- !u!95 &1484884421084365805
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144379992974809198}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc9e422ad3c3a4e429a53cd6a324dbb2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7319353643846201622
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class LinkemonTrainer : MonoBehaviour
             GameObject linkemonInstance = Instantiate(LinkemonPrefab, linkemonListParent);
             Linkemon lkComponent = linkemonInstance.GetComponent<Linkemon>();
             lkComponent.Init(lk);
-
+            lkComponent.Trainer = this;
             currentInstantiatedLinkemons.Add(linkemonInstance.GetComponent<Linkemon>());
         }
     }
