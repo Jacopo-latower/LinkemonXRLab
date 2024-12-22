@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Confusione
   m_EditorClassIdentifier: 
   attackName: Confusione
+  attackGenre: 0
   attackType: 1
-  damage: 30
+  value: 20
+  attackSpeed: 10
   strikesNum: 1
