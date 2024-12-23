@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 3D Print
   m_EditorClassIdentifier: 
   attackName: 3D Print
-  attackGenre: 1
+  attackGenre: 9
   attackType: 9
-  value: 4
+  value: 3
   attackSpeed: 10
-  strikesNum: 1
+  strikesNum: 18
   successValue: 0.8

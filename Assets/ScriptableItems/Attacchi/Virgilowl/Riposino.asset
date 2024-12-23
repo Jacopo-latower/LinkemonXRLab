@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1a4fdf4c5bbb14eb4c4f14f0d42cf5, type: 3}
   m_Name: Riposino
   m_EditorClassIdentifier: 
-  attackName: 
-  attackGenre: 0
-  attackType: 0
-  value: 10
+  attackName: Riposino
+  attackGenre: 9
+  attackType: 9
+  value: 15
   attackSpeed: 10
   strikesNum: 1
   successValue: 1

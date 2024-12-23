@@ -17,7 +17,11 @@ MonoBehaviour:
   verse: {fileID: 0}
   lType: 9
   weaknessType: 8
-  attacks: []
+  attacks:
+  - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
+  - {fileID: 11400000, guid: 35c544f6a54970643ac46c600917c2d0, type: 2}
+  - {fileID: 11400000, guid: 200cc6a69f40f3d42ae4337d43884494, type: 2}
+  - {fileID: 11400000, guid: 5c86cd16447e2514aa1f1b5233529597, type: 2}
   startingLife: 200
   startingSpeed: 80
   startingAttack: 30
