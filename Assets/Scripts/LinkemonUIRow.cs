@@ -25,7 +25,8 @@ public class LinkemonUIRow : MonoBehaviour
 
     public void OnClick()
     {
-        StartCoroutine(BattleManager.instance.ChangeLinkemonAction(linkemon.GetComponent<Linkemon>()));
+        Debug.Log("Click");
+        BattleManager.instance.OnPlayerChangeLinkemon(linkemon.GetComponent<Linkemon>());
     }
 
 }

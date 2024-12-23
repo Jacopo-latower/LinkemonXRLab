@@ -111,7 +111,7 @@ public class SoundManager : MonoBehaviour
         {
             while (currentAudioSource.isPlaying)
             {
-                Debug.Log("Audio Playing...");
+                //Debug.Log("Audio Playing...");
                 yield return null;
             }
             Debug.Log("Audio finished");

@@ -33,6 +33,8 @@ public class BattleManager : MonoBehaviour
     public GameObject attacksMenu;
     public GameObject linkemonListContainerPl;
 
+    public GameObject gameOverUI;
+
     [Header("Current Linkémon")]
     public Linkemon currentPlayerLinkemon;
     public Linkemon currentOpponentLinkemon;
@@ -104,14 +106,22 @@ public class BattleManager : MonoBehaviour
         }
 
     }
+
+    public void OnPlayerChangeLinkemon(Linkemon lk)
+    {
+        StartCoroutine(ChangeLinkemonAction(lk));
+    }
     public IEnumerator ChangeLinkemonAction(Linkemon lk)
     {
-        linkemonListContainerPl.SetActive(false);
+        linkemonListContainerPl.transform.parent.gameObject.SetActive(false);
+        Debug.Log("Change Triggered");
         if (currentPlayerLinkemon.linkemonName == lk.linkemonName)
             yield break;
 
         yield return StartCoroutine(ChangePlayerLinkemon(lk));
-        yield return HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon);
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Executing Handle Battle");
+        yield return StartCoroutine(HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon));
 
     }
     //Brutto vero... Da cambiare nel tempo che così fa vomitare
@@ -287,6 +297,7 @@ public class BattleManager : MonoBehaviour
     //IF Player does not attack, only the opponent attacks
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second)
     {
+        Debug.Log("HandleBattleCalled");
         #region HANDLE ATTACK 1
         //Success Calc
         //TODO:
@@ -585,7 +596,14 @@ public class BattleManager : MonoBehaviour
 
         //Non abbiamo l'icona di spalle dei linkemon perchè troppa sbatta, quindi mirroriamo e ciao
         linkemon.MirrorLinkemonIconGroup();
+
+        if (linkemon == null)
+        {
+            Debug.LogError("Linkemon is null!");
+            yield break;
+        }
         currentPlayerLinkemon = linkemon;
+        Debug.Log("Change Completed");
     }
 
     IEnumerator ChangeOpponentLinkemon(Linkemon linkemon)
@@ -684,6 +702,7 @@ public class BattleManager : MonoBehaviour
     void OnPlayerDefeat()
     {
         //TODO:game over
+        gameOverUI.SetActive(true);
     }
     IEnumerator SpawnMessageUIForTime(string text, float time)
     {
