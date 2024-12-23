@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewAttack", menuName = "ScriptableObjects/LinkemonAttack", order = 1)]
 public class LinkemonAttack : ScriptableObject
 {
-    public enum LinkemonAttackGenre { Damage, Defense, Elusion, Speed}
+    public enum LinkemonAttackGenre { Damage, Attack, Defense, Elusion, Speed, OpponentAttack, OpponentDefense, OpponentElusion, OpponentSpeed }
 
 
     public string attackName;

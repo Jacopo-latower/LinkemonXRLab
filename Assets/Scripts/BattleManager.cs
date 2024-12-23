@@ -120,11 +120,29 @@ public class BattleManager : MonoBehaviour
         //TODO:
         bool success = CalculateSuccess(first, firstAttackIndex, second);
         DialogueManager.instance.ShowMessage(first.linkemonName + " usa " + first.attackList[firstAttackIndex].attackName + "!");
+
         yield return new WaitForSeconds(1.5f);
         if (success)
         {
-            //AttackHandling
-            yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+            int strikes = 1;
+            int hit = 0;
+            if (first.attackList[firstAttackIndex].strikesNum > 1)
+            {
+                strikes = Random.Range(1, first.attackList[firstAttackIndex].strikesNum);
+
+                DialogueManager.instance.ShowMessage(first.attackList[firstAttackIndex].attackName + " colpisce per " + strikes + " volte.");
+                
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            while (hit < strikes)
+            {
+                //AttackHandling
+                yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
+                if (CheckOpponentLinkemon()) hit = strikes;
+                yield return new WaitForSeconds(.5f);
+                hit++;
+            }
         }
         else
         {
@@ -186,8 +204,25 @@ public class BattleManager : MonoBehaviour
         bool success2 = CalculateSuccess(second, secondAttackIndex, first);
         if (success2)
         {
-            //AttackHandling
-            yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
+            int strikes = 1;
+            int hit = 0;
+            if (second.attackList[secondAttackIndex].strikesNum > 1)
+            {
+                strikes = Random.Range(1, second.attackList[secondAttackIndex].strikesNum);
+
+                DialogueManager.instance.ShowMessage(second.attackList[secondAttackIndex].attackName + " colpisce per " + strikes + " volte.");
+
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            while (hit < strikes)
+            {
+                //AttackHandling
+                yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
+                if (CheckOpponentLinkemon()) hit = strikes;
+                yield return new WaitForSeconds(.5f);
+                hit++;
+            }
         }
         else
         {
@@ -357,73 +392,118 @@ public class BattleManager : MonoBehaviour
         LinkemonAttack.LinkemonAttackGenre genre = attack.attackGenre;
         LinkemonType type = attack.attackType;
 
-        if (genre == LinkemonAttack.LinkemonAttackGenre.Damage)
+        switch (genre)
         {
-            //Animation
-            if(attacker.Trainer.name == "Player")
-                attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
-            else
-                attacker.GetComponent<Animator>().SetBool("Attacking", true);
-            yield return new WaitForSeconds(0.4f);
-            if (attacker.Trainer.name == "Player")
-                attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
-            else
-                attacker.GetComponent<Animator>().SetBool("Attacking", false);
+            case LinkemonAttack.LinkemonAttackGenre.Damage:
+                //Animation
+                if (attacker.Trainer.name == "Player")
+                    attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+                else
+                    attacker.GetComponent<Animator>().SetBool("Attacking", true);
+                yield return new WaitForSeconds(0.4f);
+                if (attacker.Trainer.name == "Player")
+                    attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+                else
+                    attacker.GetComponent<Animator>().SetBool("Attacking", false);
 
-            defender.GetComponent<Animator>().SetBool("Damage", true);
-            yield return new WaitForSeconds(0.4f);
-            defender.GetComponent<Animator>().SetBool("Damage", false);
-            //DMG Calculation
-            int dmg = attack.value;
+                defender.GetComponent<Animator>().SetBool("Damage", true);
+                yield return new WaitForSeconds(0.4f);
+                defender.GetComponent<Animator>().SetBool("Damage", false);
+                //DMG Calculation
+                int dmg = attack.value;
 
-            string message = "";
-            string message2 = "";
+                string message = "";
+                string message2 = "";
 
-            if (defType == type)
-            { //Non molto efficace...
-                dmg /= 2;
-                message = "Non è molto efficace...";
-            }
-            else if (defender.weakness == type)
-            { //Superefficace!
-                dmg *= 2;
-                message = "È superefficace!";
-            }
+                if (defType == type)
+                { //Non molto efficace...
+                    dmg /= 2;
+                    message = "Non è molto efficace...";
+                }
+                else if (defender.weakness == type)
+                { //Superefficace!
+                    dmg *= 2;
+                    message = "È superefficace!";
+                }
 
-            //Critical Hit doubling
-            int num = Random.Range(0, 20);
-            if (num == 5)
-            {
-                message2 = "Brutto Colpo!";
-                dmg *= 2;
-            }
+                //Critical Hit doubling
+                int num = Random.Range(0, 20);
+                if (num == 5)
+                {
+                    message2 = "Brutto Colpo!";
+                    dmg *= 2;
+                }
 
-            defender.ReceiveDamage(dmg);
 
-            if (message != "")
-            {
-                DialogueManager.instance.ShowMessage(message);
+                dmg *= attacker.CurrentAttack/defender.CurrentDefense;
+
+                defender.ReceiveDamage(dmg);
+
+                if (message != "")
+                {
+                    DialogueManager.instance.ShowMessage(message);
+                    yield return new WaitForSeconds(1.5f);
+                }
+
+                if (message2 != "")
+                {
+                    DialogueManager.instance.ShowMessage(message2);
+                    yield return new WaitForSeconds(1.5f);
+                }
+            break;
+
+            case LinkemonAttack.LinkemonAttackGenre.Attack:
+                attacker.CurrentAttack += attack.value;
+                DialogueManager.instance.ShowMessage("Attacco di " + attacker.linkemonName + " aumenta!");
                 yield return new WaitForSeconds(1.5f);
-            }
+            break;
 
-            if (message2 != "")
-            {
-                DialogueManager.instance.ShowMessage(message2);
+            case LinkemonAttack.LinkemonAttackGenre.Defense:
+                attacker.CurrentDefense += attack.value;
+                DialogueManager.instance.ShowMessage("Difesa di " + attacker.linkemonName + " aumenta!");
                 yield return new WaitForSeconds(1.5f);
-            }
+            break;
 
-        }
-        else if(genre == LinkemonAttack.LinkemonAttackGenre.Elusion)
-        {
-            attacker.CurrentElusion += attack.value;
-            DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
-            yield return new WaitForSeconds(1.5f);
-        }
-        else if (genre == LinkemonAttack.LinkemonAttackGenre.Speed)
-        {
-            attacker.CurrentSpeed += attack.value;
-            DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
-            yield return new WaitForSeconds(1.5f);
+            case LinkemonAttack.LinkemonAttackGenre.Elusion:
+                attacker.CurrentElusion += attack.value;
+                DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
+                yield return new WaitForSeconds(1.5f);
+            break;
+
+            case LinkemonAttack.LinkemonAttackGenre.Speed:
+                attacker.CurrentSpeed += attack.value;
+                DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
+                yield return new WaitForSeconds(1.5f);
+            break;
+
+            case LinkemonAttack.LinkemonAttackGenre.OpponentAttack:
+                defender.CurrentAttack -= attack.value;
+                if (defender.CurrentAttack < 0) defender.CurrentAttack = 1;
+                DialogueManager.instance.ShowMessage("Attacco di " + defender.linkemonName + " cala!");
+                yield return new WaitForSeconds(1.5f);
+                break;
+
+            case LinkemonAttack.LinkemonAttackGenre.OpponentDefense:
+                defender.CurrentDefense -= attack.value;
+                if (defender.CurrentDefense < 0) defender.CurrentDefense = 1;
+                DialogueManager.instance.ShowMessage("Difesa di " + defender.linkemonName + " cala!");
+                yield return new WaitForSeconds(1.5f);
+                break;
+
+            case LinkemonAttack.LinkemonAttackGenre.OpponentElusion:
+                defender.CurrentElusion -= attack.value;
+                if (defender.CurrentElusion < 0) defender.CurrentElusion = 1;
+                DialogueManager.instance.ShowMessage("Elusione di " + defender.linkemonName + " cala!");
+                yield return new WaitForSeconds(1.5f);
+                break;
+
+            case LinkemonAttack.LinkemonAttackGenre.OpponentSpeed:
+                defender.CurrentSpeed -= attack.value;
+                if (defender.CurrentSpeed < 0) defender.CurrentSpeed = 1;
+                DialogueManager.instance.ShowMessage("Velocità di " + defender.linkemonName + " cala!");
+                yield return new WaitForSeconds(1.5f);
+                break;
+
         }
         Debug.Log("Attack Finished");
     }

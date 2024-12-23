@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
-  m_Name: Bitidile
+  m_Name: Banorta
   m_EditorClassIdentifier: 
-  lkName: Bitidile
-  battleIcon: {fileID: 21300000, guid: 9fca3826822e5a741959cc2707c4215d, type: 3}
+  lkName: Banorta
+  battleIcon: {fileID: 21300000, guid: 64de68279c12e064bbb4a8bc85bc1a85, type: 3}
   verse: {fileID: 0}
-  lType: 3
-  weaknessType: 4
+  lType: 5
+  weaknessType: 2
   attacks:
-  - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
-  - {fileID: 11400000, guid: 1a08e9ca8a5c25a4ea456190fc6cf20e, type: 2}
-  - {fileID: 11400000, guid: 632ae0358afc3274db46fbaa0f555389, type: 2}
+  - {fileID: 11400000, guid: c7228a653af9f544bb7bf4db079494a9, type: 2}
+  - {fileID: 11400000, guid: bf0b2f9a5c4084e44be4e113e863842b, type: 2}
   - {fileID: 11400000, guid: 4f5752059d9cb5b40a492a4ae19f421b, type: 2}
-  startingLife: 120
+  startingLife: 300
   startingSpeed: 50
-  startingAttack: 25
-  startingDefense: 25
+  startingAttack: 20
+  startingDefense: 10

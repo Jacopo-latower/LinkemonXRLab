@@ -14,4 +14,6 @@ public class LinkemonScriptable : ScriptableObject
 
     public int startingLife = 100;
     public int startingSpeed = 50;
+    public int startingAttack = 50;
+    public int startingDefense = 50;
 }

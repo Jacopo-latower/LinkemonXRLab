@@ -17,6 +17,8 @@ public class Linkemon : MonoBehaviour
     [Header("References")]
     [SerializeField] private Image battleImageUI;
     [SerializeField] private GameObject healthBarUI;
+    [SerializeField] private Image healthBarUIFill;
+    private Color healthBarColor;
     [SerializeField] private GameObject nameUI;
     [SerializeField] private GameObject typeUI;
     [SerializeField] private GameObject lifeNumUI;
@@ -34,6 +36,8 @@ public class Linkemon : MonoBehaviour
     private int currentLife;
     private int currentSpeed;
     private int currentElusion;
+    private int currentAttack;
+    private int currentDefense;
     private bool isAsleep = false;
     private bool isBurned = false;
     private bool isPoisoned = false;
@@ -42,6 +46,8 @@ public class Linkemon : MonoBehaviour
     public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public int CurrentLife { get => currentLife; set => currentLife = value; }
     public int CurrentElusion { get => currentElusion; set => currentElusion = value; }
+    public int CurrentAttack { get => currentAttack; set => currentAttack = value; }
+    public int CurrentDefense { get => currentDefense; set => currentDefense = value; }
 
     public void Init(LinkemonScriptable ls)
     {
@@ -51,6 +57,8 @@ public class Linkemon : MonoBehaviour
         startingSpeed = ls.startingSpeed;
         currentSpeed = startingSpeed;
         currentElusion = 0;
+        currentAttack = ls.startingAttack;
+        currentDefense = ls.startingDefense;
         battleIcon = ls.battleIcon;
         lType = ls.lType;
         weakness = ls.weaknessType;
@@ -69,7 +77,9 @@ public class Linkemon : MonoBehaviour
 
         if (healthBarUI != null)
             healthBarUI.SetActive(false);
-        
+        healthBarColor = healthBarUIFill.color;
+
+
         nameUI.GetComponent<TextMeshProUGUI>().text = linkemonName;
         typeUI.GetComponent<TextMeshProUGUI>().text = lType.ToString();
         lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
@@ -119,11 +129,14 @@ public class Linkemon : MonoBehaviour
 
     public void ReceiveDamage(int dmg)
     {
+        if(dmg == 0) dmg=1;
         currentLife -= dmg;
         float value = (float)currentLife / startingLife;
         Debug.Log("Value of healthbar " + value);
         Debug.Log("Life of " + linkemonName + ": " + currentLife);
         healthBarUI.GetComponent<Slider>().value = value;
+        healthBarUIFill.color = (float)currentLife / startingLife > .5f? healthBarColor : (float)currentLife / startingLife > .2f ? Color.yellow : Color.red;
+        lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
     }
     public void OnDead()
     {
