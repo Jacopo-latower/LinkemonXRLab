@@ -503,7 +503,7 @@ public class BattleManager : MonoBehaviour
 
                 Debug.Log("Atk/Def = " + attacker.CurrentAttack / defender.CurrentDefense + "\nDamage going from " + dmg + " to " + (dmg * attacker.CurrentAttack / defender.CurrentDefense));
 
-                dmg *= attacker.CurrentAttack/defender.CurrentDefense;
+                dmg = dmg/2 + dmg / 2 * attacker.CurrentAttack/defender.CurrentDefense;
 
                 defender.ReceiveDamage(dmg);
 
@@ -593,6 +593,12 @@ public class BattleManager : MonoBehaviour
                     if (defender.CurrentSpeed < 0) defender.CurrentSpeed = 1;
                     DialogueManager.instance.ShowMessage("Velocità di " + defender.linkemonName + " cala!");
                 }
+                yield return new WaitForSeconds(1.5f);
+                break;
+
+            case LinkemonAttack.LinkemonAttackGenre.RestoreHealth:
+                attacker.RestoreHealth(attack.value);
+                DialogueManager.instance.ShowMessage(defender.linkemonName + " recupera salute!");
                 yield return new WaitForSeconds(1.5f);
                 break;
 

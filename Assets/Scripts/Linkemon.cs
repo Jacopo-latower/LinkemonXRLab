@@ -181,6 +181,19 @@ public class Linkemon : MonoBehaviour
         }
     }
 
+    public void RestoreHealth(int hp)
+    {
+        currentLife += hp;
+        if (currentLife > startingLife) currentLife = startingLife;
+
+        float value = (float)currentLife / startingLife;
+        Debug.Log("Value of healthbar " + value);
+        Debug.Log("Life of " + linkemonName + ": " + currentLife);
+        healthBarUI.GetComponent<Slider>().value = value;
+        healthBarUIFill.color = (float)currentLife / startingLife > .5f ? healthBarColor : (float)currentLife / startingLife > .2f ? Color.yellow : Color.red;
+        lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
+    }
+
     public void ReceiveDamage(int dmg)
     {
         if(dmg == 0) dmg=1;
