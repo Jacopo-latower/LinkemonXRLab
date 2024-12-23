@@ -12,6 +12,7 @@ public class LinkemonTrainer : MonoBehaviour
     [SerializeField] private GameObject exclamationMarkRef;
     [SerializeField] private List<LinkemonScriptable> startingLinkemonScriptables;
     [SerializeField] private bool isNPC = false;
+    [SerializeField] private float detectingDistance = 10f;
 
     [TextArea(20, 30)]
     [SerializeField] private string dialogue;
@@ -28,6 +29,8 @@ public class LinkemonTrainer : MonoBehaviour
 
     private bool defeated = false;
     private bool alreadyMetPlayer = false;
+
+    public bool Defeated { get => defeated; }
     private void Start()
     {
         foreach(LinkemonScriptable lk in startingLinkemonScriptables)
@@ -65,6 +68,18 @@ public class LinkemonTrainer : MonoBehaviour
         lkComponent.Init(lk);
         lkComponent.Trainer = this;
         currentInstantiatedLinkemons.Add(linkemonInstance.GetComponent<Linkemon>());
+    }
+
+    public void RemoveLinkemon(string name)
+    {
+        for (int i = 0; i < currentInstantiatedLinkemons.Count; i++)
+        {
+            if (currentInstantiatedLinkemons[i].linkemonName == name)
+            {
+                currentInstantiatedLinkemons.RemoveAt(i);
+                break;
+            }
+        }
     }
 
     public void ResetAllLinkemon()
@@ -109,6 +124,7 @@ public class LinkemonTrainer : MonoBehaviour
 
     public void OnDefeat()
     {
+        defeated = true;
         StartCoroutine(OnDefeatCoroutine());
     }
 
@@ -119,16 +135,23 @@ public class LinkemonTrainer : MonoBehaviour
         {
             yield return null;
         }
+
+
         //We reward the player with a Linkemon and a ricarica tot
         LinkemonTrainer plTrainer = GameObject.FindGameObjectWithTag("Player").GetComponent<LinkemonTrainer>();
-        plTrainer.AddLinkemon(rewardLinkemon);
-        plTrainer.ResetAllLinkemon();
-        DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
-        yield return new WaitForSeconds(0.5f);
-        while (!Input.GetKeyDown(KeyCode.F))
+
+        if (rewardLinkemon != null)
         {
-            yield return null;
+            plTrainer.AddLinkemon(rewardLinkemon);
+            plTrainer.ResetAllLinkemon();
+            DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
+            yield return new WaitForSeconds(0.5f);
+            while (!Input.GetKeyDown(KeyCode.F))
+            {
+                yield return null;
+            }
         }
+        
         DialogueManager.instance.DestroyMessage();
         plTrainer.GetComponent<PlayerController2D>().CanMove = true;
     }
@@ -139,12 +162,21 @@ public class LinkemonTrainer : MonoBehaviour
 
     private bool CheckForPlayer()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down);
-        if (hit2D.collider.gameObject.CompareTag("Player"))
-            return true;
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down, detectingDistance);
+        if (hit2D)
+        {
+            if(hit2D.collider.gameObject.CompareTag("Player"))
+                return true;
+        }
+           
 
         return false;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, detectingDistance * Vector2.down);
+    }
 
 }

@@ -28,9 +28,9 @@ public class Linkemon : MonoBehaviour
 
     [Header("Stats")]
     public LinkemonType lType;
-    public LinkemonType weakness; //anche questo fa schifo e dovrebbe stare dentro un fantomatico "LinkemonType" object che non esiste  ma troppo lungo
+    public List<LinkemonType> weaknessTypes; //anche questo fa schifo e dovrebbe stare dentro un fantomatico "LinkemonType" object che non esiste  ma troppo lungo
     public List<LinkemonAttack> attackList;
-    public Dictionary<string, int> attacksMap; //Fa schifo ma è troppo lungo fare tutto bene
+    public Dictionary<string, int> attacksMap; //Fa schifo ma è troppo lungo fare tutto bene -> UPDATE: NON LO USIAMO PIU'
 
     private int startingLife;
     private int startingSpeed;
@@ -82,7 +82,7 @@ public class Linkemon : MonoBehaviour
 
         battleIcon = ls.battleIcon;
         lType = ls.lType;
-        weakness = ls.weaknessType;
+        weaknessTypes = ls.weaknessTypes;
         linkemonVerse = ls.verse;
         attackList = ls.attacks;
 
@@ -169,7 +169,7 @@ public class Linkemon : MonoBehaviour
 
             if (defType == type) //Non molto efficace...
                 dmg /= 2;
-            else if (defender.weakness == type) //Superefficace!
+            else if (defender.weaknessTypes.Contains(type)) //Superefficace!
                 dmg *= 2;
 
             //Critical Hit doubling

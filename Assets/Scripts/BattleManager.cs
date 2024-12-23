@@ -487,7 +487,7 @@ public class BattleManager : MonoBehaviour
                     dmg /= 2;
                     message = "Non è molto efficace...";
                 }
-                else if (defender.weakness == type)
+                else if (defender.weaknessTypes.Contains(type))
                 { //Superefficace!
                     dmg *= 2;
                     message = "È superefficace!";

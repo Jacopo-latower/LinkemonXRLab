@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: Sorpredenti
   attackGenre: 0
   attackType: 7
-  value: 45
+  value: 50
   attackSpeed: 10
   strikesNum: 1
   successValue: 0.36

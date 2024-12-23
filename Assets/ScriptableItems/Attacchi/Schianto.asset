@@ -16,6 +16,6 @@ MonoBehaviour:
   attackGenre: 0
   attackType: 9
   value: 30
-  attackSpeed: 30
+  attackSpeed: 40
   strikesNum: 1
   successValue: 0.5

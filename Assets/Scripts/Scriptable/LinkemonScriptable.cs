@@ -9,7 +9,7 @@ public class LinkemonScriptable : ScriptableObject
     public AudioClip verse;
 
     public Linkemon.LinkemonType lType;
-    public Linkemon.LinkemonType weaknessType;
+    public List<Linkemon.LinkemonType> weaknessTypes;
     public List<LinkemonAttack> attacks;
 
     public int startingLife = 100;
