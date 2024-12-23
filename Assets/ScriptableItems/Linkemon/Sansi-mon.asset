@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Sansi-mon
+  m_EditorClassIdentifier: 
+  lkName: Sansi-mon
+  battleIcon: {fileID: 21300000, guid: acadd372023bc1649a5e0a7624c3395b, type: 3}
+  verse: {fileID: 0}
+  lType: 1
+  weaknessType: 0
+  attacks:
+  - {fileID: 11400000, guid: 8beae2b55e71d9f478635df4099454ae, type: 2}
+  - {fileID: 11400000, guid: 59cd564d8fece15469beb15d18d04dba, type: 2}
+  - {fileID: 11400000, guid: b959a9a3d7babcb4b8102516bf5cd446, type: 2}
+  - {fileID: 11400000, guid: 4d9cc683c0230494fbe5c3dabb4a60cc, type: 2}
+  startingLife: 100
+  startingSpeed: 10
+  startingAttack: 50
+  startingDefense: 50

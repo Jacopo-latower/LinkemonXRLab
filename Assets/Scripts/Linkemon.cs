@@ -64,13 +64,22 @@ public class Linkemon : MonoBehaviour
     public void Init(LinkemonScriptable ls)
     {
         linkemonName = ls.name;
+
         startingLife = ls.startingLife;
         currentLife = startingLife;
+
         startingSpeed = ls.startingSpeed;
         currentSpeed = startingSpeed;
+
+        startingElusion = 0;
         currentElusion = 0;
-        currentAttack = ls.startingAttack;
-        currentDefense = ls.startingDefense;
+
+        startingAttack = ls.startingAttack;
+        currentAttack = startingAttack;
+
+        startingDefense = ls.startingDefense;
+        currentDefense = startingDefense;
+
         battleIcon = ls.battleIcon;
         lType = ls.lType;
         weakness = ls.weaknessType;

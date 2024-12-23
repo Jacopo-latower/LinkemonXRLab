@@ -1625,7 +1625,6 @@ MonoBehaviour:
   trainerName: Player
   exclamationMarkRef: {fileID: 0}
   startingLinkemonScriptables:
-  - {fileID: 11400000, guid: 79e2bf34ba1af4748875a8a321fd8567, type: 2}
   - {fileID: 11400000, guid: c0bfa6d936327b149a0053428744b8fe, type: 2}
   isNPC: 0
   dialogue: 
