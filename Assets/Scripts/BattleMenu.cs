@@ -35,7 +35,6 @@ public class BattleMenu : MonoBehaviour
     {
         //UI On Click
         Debug.Log("Attacking");
-        BattleManager.instance.OnPlayerAttack(attackIndex);
-        
+        BattleManager.instance.OnPlayerAttack(attackIndex);       
     }
 }

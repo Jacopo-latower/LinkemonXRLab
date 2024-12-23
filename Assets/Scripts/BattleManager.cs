@@ -49,6 +49,7 @@ public class BattleManager : MonoBehaviour
     private GameObject player;
     private GameObject currentOpponent;
     private bool isStartingSequenceFinished = false;
+    private bool antiSpamAttack = false;
 
     [Header("Debug")]
     public LinkemonTrainer testOppo;
@@ -87,6 +88,10 @@ public class BattleManager : MonoBehaviour
 
     public void OnPlayerAttack(int attackIndex)
     {
+        if (antiSpamAttack)
+            return;
+        StartCoroutine(AntiSpamAttackCoroutine());
+
         //Hide Menu
         attacksMenu.SetActive(false);
 
@@ -110,10 +115,20 @@ public class BattleManager : MonoBehaviour
     public void OnPlayerChangeLinkemon(Linkemon lk)
     {
         StartCoroutine(ChangeLinkemonAction(lk));
+ 
     }
     public IEnumerator ChangeLinkemonAction(Linkemon lk)
     {
+
         linkemonListContainerPl.transform.parent.gameObject.SetActive(false);
+
+        if (lk.CurrentLife <= 0f)
+        {
+            DialogueManager.instance.ShowMessage(lk.linkemonName + " non è più in grado di combattere!");
+            yield return new WaitForSeconds(1.5f);
+            DialogueManager.instance.DestroyMessage();
+            yield break;
+        }
         Debug.Log("Change Triggered");
         if (currentPlayerLinkemon.linkemonName == lk.linkemonName)
             yield break;
@@ -127,6 +142,7 @@ public class BattleManager : MonoBehaviour
     //Brutto vero... Da cambiare nel tempo che così fa vomitare
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second, int secondAttackIndex)
     {
+        Debug.Log("HANDLE BATTLE CALLED");
         #region HANDLE ATTACK 1
         //Success Calc
         //TODO:
@@ -176,7 +192,13 @@ public class BattleManager : MonoBehaviour
             foreach(Linkemon l in list)
             {
                 if (l.CurrentLife > 0)
+                {
                     yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    yield break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -197,7 +219,13 @@ public class BattleManager : MonoBehaviour
             foreach (Linkemon l in list)
             {
                 if (l.CurrentLife >= 0)
+                {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    yield break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -256,7 +284,13 @@ public class BattleManager : MonoBehaviour
             foreach (Linkemon l in list)
             {
                 if (l.CurrentLife >= 0)
+                {
                     yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    yield break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -270,14 +304,21 @@ public class BattleManager : MonoBehaviour
         {
             DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
             currentPlayerLinkemon.OnDead();
-            yield return new WaitForSeconds(0.5f);
             currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
             currentPlayerLinkemon = null;
+            Debug.Log("Current Player Linkemon è null adesso");
+            yield return new WaitForSeconds(3f);
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
             {
                 if (l.CurrentLife >= 0)
+                {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -297,7 +338,7 @@ public class BattleManager : MonoBehaviour
     //IF Player does not attack, only the opponent attacks
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second)
     {
-        Debug.Log("HandleBattleCalled");
+        Debug.Log("HANDLE SINGLE BATTLE CALLED");
         #region HANDLE ATTACK 1
         //Success Calc
         //TODO:
@@ -329,7 +370,13 @@ public class BattleManager : MonoBehaviour
             foreach (Linkemon l in list)
             {
                 if (l.CurrentLife > 0)
+                {
                     yield return StartCoroutine(ChangeOpponentLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -350,7 +397,13 @@ public class BattleManager : MonoBehaviour
             foreach (Linkemon l in list)
             {
                 if (l.CurrentLife >= 0)
+                {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
+                    yield return new WaitForSeconds(0.7f);
+                    attacksMenu.SetActive(true);
+                    DialogueManager.instance.DestroyMessage();
+                    break;
+                }
                 yield return null;
             }
             //Victory if there is not a linkemon available for the opponent
@@ -384,6 +437,7 @@ public class BattleManager : MonoBehaviour
 
     bool CheckPlayerLinkemon()
     {
+        Debug.Log("Check PL Linkemon");
         if (currentPlayerLinkemon.CurrentLife <= 0f)
             return true;
         else
@@ -606,6 +660,7 @@ public class BattleManager : MonoBehaviour
         }
         currentPlayerLinkemon = linkemon;
         Debug.Log("Change Completed");
+
     }
 
     IEnumerator ChangeOpponentLinkemon(Linkemon linkemon)
@@ -734,5 +789,11 @@ public class BattleManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+    }
+    IEnumerator AntiSpamAttackCoroutine()
+    {
+        antiSpamAttack = true;
+        yield return new WaitForSeconds(1f);
+        antiSpamAttack = false;
     }
 }

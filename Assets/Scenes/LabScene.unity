@@ -374,7 +374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &68420669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1495,6 +1495,7 @@ MonoBehaviour:
   exclamationMarkRef: {fileID: 0}
   startingLinkemonScriptables:
   - {fileID: 11400000, guid: c0bfa6d936327b149a0053428744b8fe, type: 2}
+  - {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
   isNPC: 0
   dialogue: 
   endBattledialogue: 

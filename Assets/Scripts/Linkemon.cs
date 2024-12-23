@@ -147,6 +147,8 @@ public class Linkemon : MonoBehaviour
         //Da togliere se si vuole fare poi più elaborato con pozioni, items etc.
         currentLife = startingLife;
 
+        lAnimator.Play("Idle");
+
         if (linkemonVerse != null)
             SoundManager.instance.PlayAudio(linkemonVerse);
     }
