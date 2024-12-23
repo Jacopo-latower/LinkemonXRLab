@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Ettore
+  m_EditorClassIdentifier: 
+  lkName: Ettore
+  battleIcon: {fileID: 21300000, guid: 7373e36d5c67bad4bb281256f3663638, type: 3}
+  verse: {fileID: 0}
+  lType: 8
+  weaknessType: 4
+  attacks:
+  - {fileID: 11400000, guid: 3d2e2d6c069e6b046af19a6c33cfaf80, type: 2}
+  - {fileID: 11400000, guid: ff731d24eda4ce74b99281afea15de66, type: 2}
+  - {fileID: 11400000, guid: 9626d149644e1dd4a965ccc134bcd3c7, type: 2}
+  - {fileID: 11400000, guid: 820ee19a25a70fe45baa2d0122d1c7d5, type: 2}
+  startingLife: 113
+  startingSpeed: 80
+  startingAttack: 40
+  startingDefense: 10

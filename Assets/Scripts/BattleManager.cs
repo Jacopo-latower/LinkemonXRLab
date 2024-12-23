@@ -447,6 +447,7 @@ public class BattleManager : MonoBehaviour
                     dmg *= 2;
                 }
 
+                Debug.Log("Atk/Def = " + attacker.CurrentAttack / defender.CurrentDefense + "\nDamage going from " + dmg + " to " + (dmg * attacker.CurrentAttack / defender.CurrentDefense));
 
                 dmg *= attacker.CurrentAttack/defender.CurrentDefense;
 
@@ -559,9 +560,10 @@ public class BattleManager : MonoBehaviour
         int statStarting = target.GetStatByGenre(genre).Item1;
         int statCurrent = target.GetStatByGenre(genre).Item2;
 
+        Debug.Log("Attack attempting to " + (isRaise ? "raise " : "lower ") + statName + " from " + statCurrent + " by " + attack.value + "\n Default value is " + statStarting);
 
-        if ((isRaise && (statCurrent > statStarting * 1.25f)) ||
-            (!isRaise && (statCurrent * 1.25f < statStarting)))
+        if ((isRaise && (statCurrent > statStarting + 35)) ||
+            (!isRaise && (statCurrent + 35 < statStarting)))
         {
             DialogueManager.instance.ShowMessage(statName + " di " + target.linkemonName + " non può " + (isRaise? "aumentare":"calare") + " ancora.");
             ret = false;

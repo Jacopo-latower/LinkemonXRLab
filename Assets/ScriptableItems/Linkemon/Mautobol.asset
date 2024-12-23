@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Mautobol
   battleIcon: {fileID: 21300000, guid: 954fb7acedca3d642aace81a93ab1fe4, type: 3}
-  verse: {fileID: 0}
+  verse: {fileID: 8300000, guid: b28e57506c70a1d4792ed50755df4369, type: 3}
   lType: 4
   weaknessType: 8
-  attacks: []
-  startingLife: 100
-  startingSpeed: 50
+  attacks:
+  - {fileID: 11400000, guid: 4ff0bbf50ccde314390eae637a1e13ed, type: 2}
+  - {fileID: 11400000, guid: 1b36d7191d877f8458d7a0e08a5fda25, type: 2}
+  - {fileID: 11400000, guid: 82acb7e1558b1c041b71ad6b7280f949, type: 2}
+  - {fileID: 11400000, guid: 6555e8d89082e1747915e87448ee3aac, type: 2}
+  startingLife: 150
+  startingSpeed: 80
   startingAttack: 45
   startingDefense: 45
