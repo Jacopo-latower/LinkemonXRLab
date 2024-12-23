@@ -438,7 +438,7 @@ public class BattleManager : MonoBehaviour
 
                 Debug.Log("Atk/Def = " + attacker.CurrentAttack / defender.CurrentDefense + "\nDamage going from " + dmg + " to " + (dmg * attacker.CurrentAttack / defender.CurrentDefense));
 
-                dmg *= attacker.CurrentAttack/defender.CurrentDefense;
+                dmg = dmg/2 + dmg / 2 * attacker.CurrentAttack/defender.CurrentDefense;
 
                 defender.ReceiveDamage(dmg);
 
