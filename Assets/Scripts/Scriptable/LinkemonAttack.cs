@@ -16,4 +16,49 @@ public class LinkemonAttack : ScriptableObject
     public int strikesNum = 1;
     public float successValue = 1f;
 
+
+    public string GetAttackGenreName()
+    {
+        string ret = "";
+        switch (attackGenre) 
+        {
+            case LinkemonAttackGenre.Damage:
+                ret = "danno";
+                break;
+            case LinkemonAttackGenre.Attack:
+            case LinkemonAttackGenre.OpponentAttack:
+                ret = "attacco";
+                break;
+            case LinkemonAttackGenre.Defense:
+            case LinkemonAttackGenre.OpponentDefense:
+                ret = "difesa";
+                break;
+            case LinkemonAttackGenre.Speed:
+            case LinkemonAttackGenre.OpponentSpeed:
+                ret = "velocità";
+                break;
+            case LinkemonAttackGenre.Elusion:
+            case LinkemonAttackGenre.OpponentElusion:
+                ret = "elusione";
+                break;
+        }
+
+        return ret;
+    }
+
+    public bool IsSelf()
+    {
+        bool ret = false;
+
+        if(attackGenre == LinkemonAttackGenre.Attack ||
+            attackGenre == LinkemonAttackGenre.Defense ||
+            attackGenre == LinkemonAttackGenre.Elusion ||
+            attackGenre == LinkemonAttackGenre.Speed
+            )
+        {
+            ret = true;
+        }
+            return ret;
+    }
+
 }

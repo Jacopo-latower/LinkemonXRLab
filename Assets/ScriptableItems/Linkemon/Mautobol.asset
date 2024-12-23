@@ -20,5 +20,5 @@ MonoBehaviour:
   attacks: []
   startingLife: 100
   startingSpeed: 50
-  startingAttack: 50
-  startingDefense: 50
+  startingAttack: 45
+  startingDefense: 45

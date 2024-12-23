@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static Linkemon;
@@ -453,59 +455,108 @@ public class BattleManager : MonoBehaviour
             break;
 
             case LinkemonAttack.LinkemonAttackGenre.Attack:
-                attacker.CurrentAttack += attack.value;
-                DialogueManager.instance.ShowMessage("Attacco di " + attacker.linkemonName + " aumenta!");
+                if (CheckCap(attack, attacker))
+                {
+                    attacker.CurrentAttack += attack.value;
+                    DialogueManager.instance.ShowMessage("Attacco di " + attacker.linkemonName + " aumenta!");
+                }
                 yield return new WaitForSeconds(1.5f);
             break;
 
             case LinkemonAttack.LinkemonAttackGenre.Defense:
-                attacker.CurrentDefense += attack.value;
-                DialogueManager.instance.ShowMessage("Difesa di " + attacker.linkemonName + " aumenta!");
+                if (CheckCap(attack, attacker))
+                {
+                    attacker.CurrentDefense += attack.value;
+                    DialogueManager.instance.ShowMessage("Difesa di " + attacker.linkemonName + " aumenta!");
+                }
                 yield return new WaitForSeconds(1.5f);
             break;
 
             case LinkemonAttack.LinkemonAttackGenre.Elusion:
-                attacker.CurrentElusion += attack.value;
-                DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
+                if (CheckCap(attack, attacker))
+                {
+                    attacker.CurrentElusion += attack.value;
+                    DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
+                }
                 yield return new WaitForSeconds(1.5f);
             break;
 
             case LinkemonAttack.LinkemonAttackGenre.Speed:
-                attacker.CurrentSpeed += attack.value;
-                DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
+                if (CheckCap(attack, attacker))
+                {
+                    attacker.CurrentSpeed += attack.value;
+                    DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
+                }
                 yield return new WaitForSeconds(1.5f);
             break;
 
             case LinkemonAttack.LinkemonAttackGenre.OpponentAttack:
-                defender.CurrentAttack -= attack.value;
-                if (defender.CurrentAttack < 0) defender.CurrentAttack = 1;
-                DialogueManager.instance.ShowMessage("Attacco di " + defender.linkemonName + " cala!");
+                if (CheckCap(attack, defender))
+                {
+                    defender.CurrentAttack -= attack.value;
+                    if (defender.CurrentAttack < 0) defender.CurrentAttack = 1;
+                    DialogueManager.instance.ShowMessage("Attacco di " + defender.linkemonName + " cala!");
+                }
                 yield return new WaitForSeconds(1.5f);
                 break;
 
             case LinkemonAttack.LinkemonAttackGenre.OpponentDefense:
-                defender.CurrentDefense -= attack.value;
-                if (defender.CurrentDefense < 0) defender.CurrentDefense = 1;
-                DialogueManager.instance.ShowMessage("Difesa di " + defender.linkemonName + " cala!");
+                if (CheckCap(attack, defender))
+                {
+                    defender.CurrentDefense -= attack.value;
+                    if (defender.CurrentDefense < 0) defender.CurrentDefense = 1;
+                    DialogueManager.instance.ShowMessage("Difesa di " + defender.linkemonName + " cala!");
+                }
                 yield return new WaitForSeconds(1.5f);
                 break;
 
             case LinkemonAttack.LinkemonAttackGenre.OpponentElusion:
-                defender.CurrentElusion -= attack.value;
-                if (defender.CurrentElusion < 0) defender.CurrentElusion = 1;
-                DialogueManager.instance.ShowMessage("Elusione di " + defender.linkemonName + " cala!");
+                if (CheckCap(attack, defender))
+                {
+                    defender.CurrentElusion -= attack.value;
+                    if (defender.CurrentElusion < 0) defender.CurrentElusion = 1;
+                    DialogueManager.instance.ShowMessage("Elusione di " + defender.linkemonName + " cala!");
+                }
                 yield return new WaitForSeconds(1.5f);
                 break;
 
             case LinkemonAttack.LinkemonAttackGenre.OpponentSpeed:
-                defender.CurrentSpeed -= attack.value;
-                if (defender.CurrentSpeed < 0) defender.CurrentSpeed = 1;
-                DialogueManager.instance.ShowMessage("Velocità di " + defender.linkemonName + " cala!");
+                if (CheckCap(attack, defender))
+                {
+                    defender.CurrentSpeed -= attack.value;
+                    if (defender.CurrentSpeed < 0) defender.CurrentSpeed = 1;
+                    DialogueManager.instance.ShowMessage("Velocità di " + defender.linkemonName + " cala!");
+                }
                 yield return new WaitForSeconds(1.5f);
                 break;
 
         }
         Debug.Log("Attack Finished");
+    }
+
+    private bool CheckCap(LinkemonAttack attack, Linkemon target)
+    {
+        bool ret = true;
+        bool isRaise = attack.IsSelf();
+
+        LinkemonAttack.LinkemonAttackGenre genre = attack.attackGenre;
+
+        string statName = attack.GetAttackGenreName();
+        
+        statName = statName.FirstCharacterToUpper();
+
+        int statStarting = target.GetStatByGenre(genre).Item1;
+        int statCurrent = target.GetStatByGenre(genre).Item2;
+
+
+        if ((isRaise && (statCurrent > statStarting * 1.25f)) ||
+            (!isRaise && (statCurrent * 1.25f < statStarting)))
+        {
+            DialogueManager.instance.ShowMessage(statName + " di " + target.linkemonName + " non può " + (isRaise? "aumentare":"calare") + " ancora.");
+            ret = false;
+        }
+
+        return ret;
     }
 
     IEnumerator ChangePlayerLinkemon(Linkemon linkemon)

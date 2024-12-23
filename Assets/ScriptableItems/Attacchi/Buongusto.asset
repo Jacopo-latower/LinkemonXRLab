@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: Buongusto
   attackGenre: 5
   attackType: 9
-  value: 5
+  value: 2
   attackSpeed: 10
   strikesNum: 1
   successValue: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static LinkemonAttack;
 
 public class Linkemon : MonoBehaviour
 {
@@ -33,15 +34,26 @@ public class Linkemon : MonoBehaviour
 
     private int startingLife;
     private int startingSpeed;
+    private int startingElusion;
+    private int startingAttack;
+    private int startingDefense;
+
     private int currentLife;
     private int currentSpeed;
     private int currentElusion;
     private int currentAttack;
     private int currentDefense;
+
     private bool isAsleep = false;
     private bool isBurned = false;
     private bool isPoisoned = false;
     private bool isDead = false;
+
+    public int StartingSpeed { get => startingSpeed;  }
+    public int StartingLife { get => startingLife;  }
+    public int StartingElusion { get => startingElusion;  }
+    public int StartingAttack { get => startingAttack; }
+    public int StartingDefense { get => startingDefense; }
 
     public int CurrentSpeed { get => currentSpeed; set => currentSpeed = value; }
     public int CurrentLife { get => currentLife; set => currentLife = value; }
@@ -83,6 +95,37 @@ public class Linkemon : MonoBehaviour
         nameUI.GetComponent<TextMeshProUGUI>().text = linkemonName;
         typeUI.GetComponent<TextMeshProUGUI>().text = lType.ToString();
         lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
+    }
+
+    public (int,int) GetStatByGenre(LinkemonAttack.LinkemonAttackGenre atkGenre)
+    {
+        int retStarting = 0;
+        int retCurrent = 0;
+        switch (atkGenre)
+        {
+            case LinkemonAttackGenre.Attack:
+            case LinkemonAttackGenre.OpponentAttack:
+                retStarting = startingAttack;
+                retCurrent = currentAttack;
+                break;
+            case LinkemonAttackGenre.Defense:
+            case LinkemonAttackGenre.OpponentDefense:
+                retStarting = startingDefense;
+                retCurrent = currentDefense;
+                break;
+            case LinkemonAttackGenre.Speed:
+            case LinkemonAttackGenre.OpponentSpeed:
+                retStarting = startingSpeed;
+                retCurrent = currentSpeed;
+                break;
+            case LinkemonAttackGenre.Elusion:
+            case LinkemonAttackGenre.OpponentElusion:
+                retStarting = startingElusion;
+                retCurrent = currentElusion;
+                break;
+        }
+
+        return (retStarting,retCurrent);
     }
 
     public void OnEnterBattle()
@@ -131,6 +174,8 @@ public class Linkemon : MonoBehaviour
     {
         if(dmg == 0) dmg=1;
         currentLife -= dmg;
+        if (currentLife < 0) currentLife = 0;
+
         float value = (float)currentLife / startingLife;
         Debug.Log("Value of healthbar " + value);
         Debug.Log("Life of " + linkemonName + ": " + currentLife);
