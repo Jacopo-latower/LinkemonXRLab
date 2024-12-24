@@ -18,4 +18,5 @@ MonoBehaviour:
   value: 100
   attackSpeed: 1
   strikesNum: 1
-  successValue: 0.1
+  successValue: 0.15
+  ppValue: 5
