@@ -506,7 +506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &68420669
 RectTransform:
   m_ObjectHideFlags: 0
@@ -543,7 +543,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 427a22b6ef4b28546a051875db8e7312, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.178
+  m_Volume: 0.068
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -9475,7 +9475,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -376.56
+  m_Spacing: -273.4
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -10846,7 +10846,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -376.56
+  m_Spacing: -273.4
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

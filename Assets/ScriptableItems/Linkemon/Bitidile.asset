@@ -24,5 +24,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fed847f408ae30b439019223b33ae107, type: 2}
   startingLife: 120
   startingSpeed: 40
-  startingAttack: 50
+  startingAttack: 40
   startingDefense: 40

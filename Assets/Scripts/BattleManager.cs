@@ -186,7 +186,7 @@ public class BattleManager : MonoBehaviour
             DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
             currentOpponentLinkemon.OnDead();
             yield return new WaitForSeconds(1f);
-            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentOpponentLinkemon = null;
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach(Linkemon l in list)
@@ -213,7 +213,7 @@ public class BattleManager : MonoBehaviour
             DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
             currentPlayerLinkemon.OnDead();
             yield return new WaitForSeconds(0.5f);
-            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentPlayerLinkemon = null;
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
@@ -278,7 +278,7 @@ public class BattleManager : MonoBehaviour
             DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
             currentOpponentLinkemon.OnDead();
             yield return new WaitForSeconds(0.5f);
-            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentOpponentLinkemon = null;
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
@@ -304,7 +304,7 @@ public class BattleManager : MonoBehaviour
         {
             DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
             currentPlayerLinkemon.OnDead();
-            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentPlayerLinkemon = null;
             Debug.Log("Current Player Linkemon è null adesso");
             yield return new WaitForSeconds(3f);
@@ -364,7 +364,7 @@ public class BattleManager : MonoBehaviour
             DialogueManager.instance.ShowMessage(currentOpponentLinkemon.linkemonName + " è esausto!");
             currentOpponentLinkemon.OnDead();
             yield return new WaitForSeconds(0.5f);
-            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentOpponentLinkemon.transform.SetParent(currentOpponent.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentOpponentLinkemon = null;
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
@@ -391,7 +391,7 @@ public class BattleManager : MonoBehaviour
             DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " è esausto!");
             currentPlayerLinkemon.OnDead();
             yield return new WaitForSeconds(0.5f);
-            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent);
+            currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
             currentPlayerLinkemon = null;
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
@@ -704,6 +704,8 @@ public class BattleManager : MonoBehaviour
     IEnumerator BattleStartSequence()
     {
         SoundManager.instance.PlayMusic(battleMusic);
+        playerContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        opponentContainer.GetComponent<CanvasGroup>().alpha = 1f;
 
         battleStartGlow.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -752,13 +754,28 @@ public class BattleManager : MonoBehaviour
         battleGroup.SetActive(false);
         linkemonNumberContainerPl.SetActive(true);
         linkemonNumberContainerOpp.SetActive(true);
+
+        //TODO:reset everything and exit battle
+        foreach (Transform t in linkemonNumberContainerOpp.transform)
+            Destroy(t.gameObject);
+
+        foreach (Transform t in linkemonNumberContainerPl.transform)
+            Destroy(t.gameObject);
+
+        foreach (Transform t in linkemonListContainerPl.transform)
+            Destroy(t.gameObject);
+
+        currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
+
+        currentPlayerLinkemon = null;
+        currentOpponentLinkemon = null;
+
         currentOpponent.GetComponent<LinkemonTrainer>().OnDefeat();
     }
 
     void OnPlayerVictory()
     {
-        //TODO:reset everything and exit battle
-
+        
         Debug.Log("PLAYER WINS!");
         StartCoroutine(BattleEndSequence());
     }

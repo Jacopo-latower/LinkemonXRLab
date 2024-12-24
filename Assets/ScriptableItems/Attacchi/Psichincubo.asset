@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: Psichincubo
   attackGenre: 0
   attackType: 1
-  value: 50
+  value: 55
   attackSpeed: 10
   strikesNum: 1
-  successValue: 0.3
+  successValue: 0.35
