@@ -224,8 +224,8 @@ public class BattleManager : MonoBehaviour
             yield break;
         }
         Debug.Log("Change Triggered");
-        if (currentPlayerLinkemon.linkemonName == lk.linkemonName)
-            yield break;
+        //if (currentPlayerLinkemon.linkemonName == lk.linkemonName)
+            //yield break;
 
         yield return StartCoroutine(ChangePlayerLinkemon(lk));
         yield return new WaitForSeconds(0.5f);
@@ -354,7 +354,7 @@ public class BattleManager : MonoBehaviour
                 //AttackHandling
                 yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
                 if (CheckLinkemonDead(first)) hit = strikes;
-                yield return new WaitForSeconds(.5f);
+                yield return new WaitForSeconds(.1f);
                 hit++;
             }
         }

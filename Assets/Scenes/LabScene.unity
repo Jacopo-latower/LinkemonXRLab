@@ -4817,7 +4817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[0]
@@ -4825,6 +4825,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: f925a260ca723654e9c6d14a85ba3562, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 6ed4cd18d7a2a0d46a6d3f0d0dee5c27, type: 2}
     - target: {fileID: 8523099654579962543, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
@@ -7229,7 +7233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[0]
@@ -7237,6 +7241,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c63f28b1619b35d489ba6a1ca3f7ef96, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 5393c9ab1c1a9b44090c5ac7bbf1616e, type: 2}
     - target: {fileID: 8523099654579962543, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
