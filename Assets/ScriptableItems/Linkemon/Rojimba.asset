@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Rojimba
+  m_EditorClassIdentifier: 
+  lkName: Rojimba
+  battleIcon: {fileID: 21300000, guid: 645e261bc21df044c97194a1d54ac35a, type: 3}
+  verse: {fileID: 0}
+  lType: 8
+  weaknessTypes: 0600000001000000
+  attacks:
+  - {fileID: 11400000, guid: d8d4962f16867524c8fe9d65a81c8c5c, type: 2}
+  - {fileID: 11400000, guid: a92b8aca732db994f8eef3ef64491bbf, type: 2}
+  - {fileID: 11400000, guid: a662c55288e250b43811f0e0491d0522, type: 2}
+  - {fileID: 11400000, guid: 20d03f686defcbd4083c1a25c1033be4, type: 2}
+  startingLife: 200
+  startingSpeed: 50
+  startingAttack: 50
+  startingDefense: 60

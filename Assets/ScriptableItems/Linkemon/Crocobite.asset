@@ -16,13 +16,13 @@ MonoBehaviour:
   battleIcon: {fileID: 21300000, guid: d0af26d58d2699f4b816b60cc743d142, type: 3}
   verse: {fileID: 0}
   lType: 3
-  weaknessType: 4
+  weaknessTypes: 0400000005000000
   attacks:
   - {fileID: 11400000, guid: 9e7bf90e2ff46e74daf88d413db3e836, type: 2}
   - {fileID: 11400000, guid: 82acb7e1558b1c041b71ad6b7280f949, type: 2}
   - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
   - {fileID: 11400000, guid: 1a08e9ca8a5c25a4ea456190fc6cf20e, type: 2}
-  startingLife: 180
+  startingLife: 200
   startingSpeed: 50
   startingAttack: 60
   startingDefense: 50

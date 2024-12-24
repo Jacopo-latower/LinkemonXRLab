@@ -1818,7 +1818,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 57cdae9f36419ee43903fb9ca0e0c16c, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: detectingDistance
-      value: 1.81
+      value: 2.02
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: endBattledialogue
@@ -3947,17 +3947,29 @@ PrefabInstance:
       value: ROJIN DESIGNER
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: rewardLinkemon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: detectingDistance
+      value: 2.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: endBattledialogue
       value: Le mie medaglie!
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: f925a260ca723654e9c6d14a85ba3562, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ed4cd18d7a2a0d46a6d3f0d0dee5c27, type: 2}
     - target: {fileID: 8523099654579962543, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: m_Name
       value: RojinTrainer
@@ -6944,7 +6956,7 @@ Transform:
   m_GameObject: {fileID: 1226516478}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.825503, y: -2.275168, z: 0}
+  m_LocalPosition: {x: -7.84, y: -2.32, z: 0}
   m_LocalScale: {x: 1.240604, y: 1.240604, z: 1.240604}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10034,7 +10046,7 @@ Transform:
   m_GameObject: {fileID: 8523099655559502326}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.31, y: 6.76, z: 0}
+  m_LocalPosition: {x: -8.45, y: 6.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10346,7 +10358,7 @@ MonoBehaviour:
   startingLinkemonScriptables:
   - {fileID: 11400000, guid: 61ac32e8e066abb4d99e7fad55360216, type: 2}
   isNPC: 1
-  detectingDistance: 2.95
+  detectingDistance: 4.24
   dialogue: Ah! Sei il nuovo tesista, eh? Vediamo se hai la stoffa per diventare
     un vero XR developer!
   endBattledialogue: Maledetto! Mi hai battuto!
