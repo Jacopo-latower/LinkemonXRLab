@@ -15,7 +15,7 @@ public class LinkemonAttack : ScriptableObject
     public int attackSpeed = 10;
     public int strikesNum = 1;
     public float successValue = 1f;
-
+    public int ppValue = 10;
 
     public string GetAttackGenreName()
     {

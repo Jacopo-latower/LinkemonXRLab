@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Mautobol
   battleIcon: {fileID: 21300000, guid: 954fb7acedca3d642aace81a93ab1fe4, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 8300000, guid: b28e57506c70a1d4792ed50755df4369, type: 3}
   lType: 4
-  weaknessTypes: 09000000
+  weaknessTypes: 08000000
   attacks:
   - {fileID: 11400000, guid: 4ff0bbf50ccde314390eae637a1e13ed, type: 2}
   - {fileID: 11400000, guid: 1b36d7191d877f8458d7a0e08a5fda25, type: 2}

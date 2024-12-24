@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25f99de29ce347149bf8e914b64ebc81, type: 2}
   - {fileID: 11400000, guid: ca2e6eaafe45b7e49a4a18705a7cd29b, type: 2}
   - {fileID: 11400000, guid: 051e3bac537d2a149b13a0ee147d2ee5, type: 2}
-  startingLife: 300
+  startingLife: 350
   startingSpeed: 25
   startingAttack: 55
   startingDefense: 60

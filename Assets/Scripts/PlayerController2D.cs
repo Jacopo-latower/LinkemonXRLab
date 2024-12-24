@@ -17,6 +17,7 @@ public class PlayerController2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canMove = false;
         backSprite.SetActive(true);
         frontSprite.SetActive(false);
         rightSprite.SetActive(false);

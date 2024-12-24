@@ -7,7 +7,7 @@ using static LinkemonAttack;
 
 public class Linkemon : MonoBehaviour
 {
-    public enum LinkemonType { Dark, Psychic, Fire, Water, Electric, Grass, Flying, Metal, Fighting, Normal}
+    public enum LinkemonType { Dark, Psychic, Fire, Water, Electric, Grass, Flying, Metal, Fighting, Normal, Rock, Earth}
 
     public string linkemonName;
     public Sprite battleIcon;
@@ -31,6 +31,7 @@ public class Linkemon : MonoBehaviour
     public List<LinkemonType> weaknessTypes; //anche questo fa schifo e dovrebbe stare dentro un fantomatico "LinkemonType" object che non esiste  ma troppo lungo
     public List<LinkemonAttack> attackList;
     public Dictionary<string, int> attacksMap; //Fa schifo ma è troppo lungo fare tutto bene -> UPDATE: NON LO USIAMO PIU'
+    private List<int> ppPerAttack;
 
     private int startingLife;
     private int startingSpeed;
@@ -43,6 +44,7 @@ public class Linkemon : MonoBehaviour
     private int currentElusion;
     private int currentAttack;
     private int currentDefense;
+    private List<int> currentPpPerAttack;
 
     private bool isAsleep = false;
     private bool isBurned = false;
@@ -60,6 +62,7 @@ public class Linkemon : MonoBehaviour
     public int CurrentElusion { get => currentElusion; set => currentElusion = value; }
     public int CurrentAttack { get => currentAttack; set => currentAttack = value; }
     public int CurrentDefense { get => currentDefense; set => currentDefense = value; }
+    public List<int> CurrentPpPerAttack { get => currentPpPerAttack; set => currentPpPerAttack = value; }
 
     public void Init(LinkemonScriptable ls)
     {
@@ -85,6 +88,15 @@ public class Linkemon : MonoBehaviour
         weaknessTypes = ls.weaknessTypes;
         linkemonVerse = ls.verse;
         attackList = ls.attacks;
+        ppPerAttack = new List<int>();
+        foreach(LinkemonAttack la in attackList)
+        {
+            ppPerAttack.Add(la.ppValue);
+        }
+        currentPpPerAttack = new List<int>();
+
+        for (int i = 0; i < ppPerAttack.Count;i++)
+                currentPpPerAttack.Add(ppPerAttack[i]);
 
         if (lAnimator == null)
             GetComponent<Animator>();
@@ -146,9 +158,12 @@ public class Linkemon : MonoBehaviour
         healthBarUI.GetComponent<Slider>().value = value;
         healthBarUIFill.color = (float)currentLife / startingLife > .5f ? healthBarColor : (float)currentLife / startingLife > .2f ? Color.yellow : Color.red;
         lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
+
+        //On Linkemon Change resettiamo i parametri di speed, attacco, difesa ed elusione per aggiungere una meccanica strategica (es. cambi il pokemon per resettarlo)
         currentElusion = 0;
         currentSpeed = startingSpeed;
-
+        currentDefense = startingDefense;
+        currentAttack = startingAttack;
 
         lAnimator.Play("Idle");
 
@@ -220,12 +235,26 @@ public class Linkemon : MonoBehaviour
     {
         //Resettiamo la vita ogni volta che c'è una battaglia; Da togliere se si vuole fare poi più elaborato con pozioni, items etc.
         currentLife = startingLife;
+        currentPpPerAttack = new List<int>();
+        for (int i = 0; i < ppPerAttack.Count; i++)
+            currentPpPerAttack.Add(ppPerAttack[i]);
+        foreach (int i in ppPerAttack)
+        {
+            Debug.Log("Starting PP for attack" + i);
+        }
+
+        foreach (int i in currentPpPerAttack)
+        {
+            Debug.Log("Current PP for attack" + i);
+        }
+        Debug.Log("PP Recharged for " + linkemonName);
         lAnimator.SetBool("Dead", false);
         lAnimator.Play("Idle");
         currentLife = startingLife;
-        Debug.Log("current life -> " + currentLife);
+        Debug.Log("Life Recharged for  " + linkemonName + " --> current life: " + currentLife);
         healthBarUI.GetComponent<Slider>().value = 1;
         lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
+        healthBarUIFill.color = (float)currentLife / startingLife > .5f ? healthBarColor : (float)currentLife / startingLife > .2f ? Color.yellow : Color.red;
 
         isAsleep = false;
         isBurned = false;

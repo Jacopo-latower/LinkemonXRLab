@@ -15,6 +15,10 @@ public class SoundManager : MonoBehaviour
     #endregion
     AudioSource currentAudioSource;
 
+    public AudioSource mainTheme;
+    public AudioSource preBattleTheme;
+    public AudioSource battleTheme;
+
     List<AudioSource> audioQueue;
 
     public bool isPlaying = false;

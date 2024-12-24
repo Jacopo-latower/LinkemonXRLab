@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: 
   battleIcon: {fileID: 21300000, guid: b50cec24c71994a43a38add8aafca3c4, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 0}
   lType: 4
-  weaknessTypes: 08000000
+  weaknessTypes: 0b000000
   attacks:
   - {fileID: 11400000, guid: a29b0b714930b4e4b86398590c34847f, type: 2}
   - {fileID: 11400000, guid: c6d77847852e9de408950af6544f2e7c, type: 2}

@@ -92,6 +92,7 @@ public class LinkemonTrainer : MonoBehaviour
     }
     IEnumerator StartBattle(GameObject player)
     {
+        SoundManager.instance.PlayMusic(SoundManager.instance.preBattleTheme);
         exclamationMarkRef.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         exclamationMarkRef.SetActive(false);
@@ -119,12 +120,14 @@ public class LinkemonTrainer : MonoBehaviour
             yield return null;
 
         DialogueManager.instance.DestroyMessage();
+        SoundManager.instance.PlayMusic(SoundManager.instance.battleTheme);
 
         BattleManager.instance.StartBattle(this);
     }
 
     public void OnDefeat()
     {
+        SoundManager.instance.PlayMusic(SoundManager.instance.mainTheme);
         defeated = true;
         StartCoroutine(OnDefeatCoroutine());
     }
@@ -144,7 +147,6 @@ public class LinkemonTrainer : MonoBehaviour
         if (rewardLinkemon != null)
         {
             plTrainer.AddLinkemon(rewardLinkemon);
-            plTrainer.RevitalizeAllLinkemon();
             DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
             yield return new WaitForSeconds(0.5f);
             while (!Input.GetKeyDown(KeyCode.F))
@@ -152,8 +154,10 @@ public class LinkemonTrainer : MonoBehaviour
                 yield return null;
             }
         }
-        
+        plTrainer.RevitalizeAllLinkemon();
+
         DialogueManager.instance.DestroyMessage();
+
         if (isFinalBoss)
             GameManager.instance.ShowVictory();
         else
