@@ -432,6 +432,9 @@ public class BattleManager : MonoBehaviour
     //IF Player/Opponent does not attack, only the opponent/player attacks
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second)
     {
+        DialogueManager.instance.ShowMessage(second.linkemonName + " non può attaccare!");
+        yield return new WaitForSeconds(1f);
+
         Debug.Log("HANDLE SINGLE BATTLE CALLED");
         #region HANDLE ATTACK 1
         //Success Calc
@@ -805,7 +808,6 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator BattleStartSequence()
     {
-        SoundManager.instance.PlayMusic(battleMusic);
         playerContainer.GetComponent<CanvasGroup>().alpha = 1f;
         opponentContainer.GetComponent<CanvasGroup>().alpha = 1f;
 

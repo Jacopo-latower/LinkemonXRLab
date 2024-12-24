@@ -92,6 +92,7 @@ public class LinkemonTrainer : MonoBehaviour
     }
     IEnumerator StartBattle(GameObject player)
     {
+        SoundManager.instance.PlayMusic(SoundManager.instance.preBattleTheme);
         exclamationMarkRef.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         exclamationMarkRef.SetActive(false);
@@ -119,12 +120,14 @@ public class LinkemonTrainer : MonoBehaviour
             yield return null;
 
         DialogueManager.instance.DestroyMessage();
+        SoundManager.instance.PlayMusic(SoundManager.instance.battleTheme);
 
         BattleManager.instance.StartBattle(this);
     }
 
     public void OnDefeat()
     {
+        SoundManager.instance.PlayMusic(SoundManager.instance.mainTheme);
         defeated = true;
         StartCoroutine(OnDefeatCoroutine());
     }
