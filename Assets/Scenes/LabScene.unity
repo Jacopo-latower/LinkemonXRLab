@@ -2148,7 +2148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[0]
@@ -2157,11 +2157,19 @@ PrefabInstance:
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 57cdae9f36419ee43903fb9ca0e0c16c, type: 2}
+      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 57cdae9f36419ee43903fb9ca0e0c16c, type: 2}
     - target: {fileID: 8523099654579962543, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: m_Name
       value: EliosTrainer
@@ -3941,8 +3949,8 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: cbf0a8694b4a6f147ad6c2ae6082a037, type: 3}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: dialogue
-      value: "Un nuovo aspirante tesista, eh? Se sei arrivato fin qui, vuol dire
-        che hai stoffa. Questa sar\xE0 la tua ultima sfida, fammi divertire!"
+      value: "Un nuovo aspirante tesista, eh? Ah, ah, ah. Se sei arrivato fin qui,
+        vuol dire che hai stoffa. Questa sar\xE0 la tua ultima sfida, fammi divertire!"
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: isFinalBoss
@@ -3971,12 +3979,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[0]
       value: 
+      objectReference: {fileID: 11400000, guid: 099cdfbc4502eab4488884426c80b48b, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[1]
+      value: 
       objectReference: {fileID: 11400000, guid: ee36f122407eb6345ad1aa53366b1ed7, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 78a58c119c7c9734d91040b4ccea1349, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c04c42ffa67ced4981ca4e82d1d1d5d, type: 2}
+    - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
+      propertyPath: startingLinkemonScriptables.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: d65550c375c9ccd4ca7c899423280ca3, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[5]
       value: 
@@ -6668,8 +6692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: dialogue
-      value: Ah! Sei il nuovo tesista, eh? Vediamo se hai la stoffa per diventare
-        un vero XR developer!
+      value: "Sto integrando l'IA sugli NPC per renderli p\xF9 realistici. Non distrarmi!"
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: trainerIcon
@@ -6677,12 +6700,12 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4cf5c11a85385124ea04ea89d9be9e04, type: 3}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: trainerName
-      value: MARI XR DEVELOPER
+      value: SIMO XR DEVELOPER
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: rewardDialogue
-      value: "A quanto pare non sei male! Ti dar\xF2 il mio pollo blu come ricompensa!
-        Ma stai attento... Gli altri sono ancora pi\xF9 forti di me!"
+      value: "Il mio Ettore \xE8 un osso duro, finch\xE9 non viene fermato da un
+        TASER."
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: rewardLinkemon
@@ -6694,7 +6717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: endBattledialogue
-      value: Maledetto! Mi hai battuto!
+      value: ChatGPT, aiutami a tirarmi fuori da questa situazione imbarazzante.
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
@@ -6868,8 +6891,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: dialogue
-      value: Ah! Sei il nuovo tesista, eh? Vediamo se hai la stoffa per diventare
-        un vero XR developer!
+      value: "Hai mai provato la realt\xE0 mista? Ti far\xF2 vedere che \xE8 tutta
+        un'altra cosa..."
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: trainerIcon
@@ -6881,8 +6904,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: rewardDialogue
-      value: "A quanto pare non sei male! Ti dar\xF2 il mio pollo blu come ricompensa!
-        Ma stai attento... Gli altri sono ancora pi\xF9 forti di me!"
+      value: Ti avevo sottovalutato. Tieni, prendi la mia Mautobol, forse puoi provare
+        a riutilizzarla nel tuo progetto di tesi.
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: rewardLinkemon
@@ -6894,7 +6917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: endBattledialogue
-      value: Maledetto! Mi hai battuto!
+      value: ...forse non cambia poi molto dalla AR...
       objectReference: {fileID: 0}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.size
@@ -7455,7 +7478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3481445, y: 3.5220032}
+  m_AnchoredPosition: {x: -2.3482056, y: 3.5220032}
   m_SizeDelta: {x: -108.0106, y: -54.0053}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1187038662
@@ -11303,12 +11326,19 @@ MonoBehaviour:
   exclamationMarkRef: {fileID: 7038945287069088458}
   startingLinkemonScriptables:
   - {fileID: 11400000, guid: 61ac32e8e066abb4d99e7fad55360216, type: 2}
+  - {fileID: 11400000, guid: 929eea173cf9f95478ff13e6d3071d84, type: 2}
+  - {fileID: 11400000, guid: e77d78024f9b8ea45b0f459d5d2fbf22, type: 2}
   isNPC: 1
   isFinalBoss: 0
   detectingDistance: 4.24
-  dialogue: '(NIK) Noi siamo NIK... (RIK) ...e RIK! Preparati alla sfida! '
+  dialogue: "Nik: Che ne pensi di Genshin Impact, facciamo un po' di quest?\r\n\rRik:
+    Scaricati Vampire Survivors e poi Balatro, presto!"
   endBattledialogue: '(NIK&RIK) Vedo la stanza a 360... '
-  rewardDialogue: "Fai del tuo meglio! Ma attento... Il boss \xE8 veramente spaventoso!"
+  rewardDialogue: 'Nik: Mi piace come giochi, prendi il nostro 360.
+
+    Rik: Per
+    il prossimo virtual tour potremmo portarti con noi a fare le riprese. Ma prima
+    devi battere il temibile Head of XR Lab'
   currentInstantiatedLinkemons: []
   linkemonListParent: {fileID: 6545145963261218109}
 --- !u!1 &7985752193012864508
