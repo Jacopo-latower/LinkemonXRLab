@@ -83,7 +83,7 @@ public class LinkemonTrainer : MonoBehaviour
         }
     }
 
-    public void ResetAllLinkemon()
+    public void RevitalizeAllLinkemon()
     {
         foreach (Linkemon l in GetLinkemonList())
         {
@@ -144,7 +144,7 @@ public class LinkemonTrainer : MonoBehaviour
         if (rewardLinkemon != null)
         {
             plTrainer.AddLinkemon(rewardLinkemon);
-            plTrainer.ResetAllLinkemon();
+            plTrainer.RevitalizeAllLinkemon();
             DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
             yield return new WaitForSeconds(0.5f);
             while (!Input.GetKeyDown(KeyCode.F))

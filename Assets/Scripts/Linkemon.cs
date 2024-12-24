@@ -139,13 +139,16 @@ public class Linkemon : MonoBehaviour
 
     public void OnEnterBattle()
     {
+        //UIs activate
         battleImageUI.gameObject.SetActive(true);
         healthBarUI.SetActive(true);
+        float value = (float)currentLife / startingLife;
+        healthBarUI.GetComponent<Slider>().value = value;
+        healthBarUIFill.color = (float)currentLife / startingLife > .5f ? healthBarColor : (float)currentLife / startingLife > .2f ? Color.yellow : Color.red;
+        lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
         currentElusion = 0;
         currentSpeed = startingSpeed;
 
-        //Da togliere se si vuole fare poi più elaborato con pozioni, items etc.
-        currentLife = startingLife;
 
         lAnimator.Play("Idle");
 
@@ -215,7 +218,15 @@ public class Linkemon : MonoBehaviour
 
     public void TotalRecharge()
     {
+        //Resettiamo la vita ogni volta che c'è una battaglia; Da togliere se si vuole fare poi più elaborato con pozioni, items etc.
         currentLife = startingLife;
+        lAnimator.SetBool("Dead", false);
+        lAnimator.Play("Idle");
+        currentLife = startingLife;
+        Debug.Log("current life -> " + currentLife);
+        healthBarUI.GetComponent<Slider>().value = 1;
+        lifeNumUI.GetComponent<TextMeshProUGUI>().text = currentLife.ToString() + "/" + startingLife.ToString();
+
         isAsleep = false;
         isBurned = false;
         isPoisoned = false;

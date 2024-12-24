@@ -598,7 +598,7 @@ public class BattleManager : MonoBehaviour
 
             case LinkemonAttack.LinkemonAttackGenre.RestoreHealth:
                 attacker.RestoreHealth(attack.value);
-                DialogueManager.instance.ShowMessage(defender.linkemonName + " recupera salute!");
+                DialogueManager.instance.ShowMessage(attacker.linkemonName + " recupera salute!");
                 yield return new WaitForSeconds(1.5f);
                 break;
 

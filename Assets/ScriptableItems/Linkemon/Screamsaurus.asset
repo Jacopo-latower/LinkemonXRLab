@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
   m_Name: Screamsaurus
   m_EditorClassIdentifier: 
-  lkName: Screamsaurus
+  lkName: Screasaurus
   battleIcon: {fileID: 21300000, guid: 216a7d65f4a1e3e46b7b4ced4c343c3d, type: 3}
-  verse: {fileID: 8300000, guid: 1eb1581f67e9d2844afeddfc626e302a, type: 3}
+  verse: {fileID: 8300000, guid: 07e838ed95f2fbf4b8e36f944f0e1c39, type: 3}
   lType: 1
   weaknessTypes: 00000000
   attacks:
+  - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
   - {fileID: 11400000, guid: 8beae2b55e71d9f478635df4099454ae, type: 2}
-  - {fileID: 11400000, guid: 98c3811571603c444b845519f384ccf6, type: 2}
-  - {fileID: 11400000, guid: 04050a3bd77400145bd37eab091adf67, type: 2}
-  - {fileID: 11400000, guid: 82acb7e1558b1c041b71ad6b7280f949, type: 2}
-  startingLife: 100
-  startingSpeed: 50
-  startingAttack: 50
-  startingDefense: 50
+  - {fileID: 11400000, guid: f698b45fa1b146b46863598e34fb5754, type: 2}
+  - {fileID: 11400000, guid: b6f9af47bb17ea443bfc9293a277c59a, type: 2}
+  startingLife: 350
+  startingSpeed: 60
+  startingAttack: 60
+  startingDefense: 45

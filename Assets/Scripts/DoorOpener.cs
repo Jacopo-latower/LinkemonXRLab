@@ -20,7 +20,7 @@ public class DoorOpener : MonoBehaviour
             if(!interactionFlag)
                 DialogueManager.instance.ShowMessage("Premi F per aprire");
 
-            bool allDefeated = false;
+            bool allDefeated = true;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 interactionFlag = true;
