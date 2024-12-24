@@ -9,4 +9,8 @@ public class GameRestarter : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void ApplicationExit()
+    {
+        Application.Quit();
+    }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Banorta
   battleIcon: {fileID: 21300000, guid: 64de68279c12e064bbb4a8bc85bc1a85, type: 3}
-  verse: {fileID: 0}
+  verse: {fileID: 8300000, guid: d656e4a4e970f9544882a6f362f7ed21, type: 3}
   lType: 5
   weaknessTypes: 02000000
   attacks:

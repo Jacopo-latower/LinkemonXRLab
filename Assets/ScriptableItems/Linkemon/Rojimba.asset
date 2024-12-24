@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Rojimba
   battleIcon: {fileID: 21300000, guid: 645e261bc21df044c97194a1d54ac35a, type: 3}
-  verse: {fileID: 0}
+  verse: {fileID: 8300000, guid: a2fa2994ca5b833459ba8ddd4872b8bc, type: 3}
   lType: 8
   weaknessTypes: 0600000001000000
   attacks:
