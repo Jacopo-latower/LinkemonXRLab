@@ -16,7 +16,7 @@ MonoBehaviour:
   battleIcon: {fileID: 21300000, guid: 9fca3826822e5a741959cc2707c4215d, type: 3}
   verse: {fileID: 0}
   lType: 3
-  weaknessType: 4
+  weaknessTypes: 0400000005000000
   attacks:
   - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
   - {fileID: 11400000, guid: 1a08e9ca8a5c25a4ea456190fc6cf20e, type: 2}

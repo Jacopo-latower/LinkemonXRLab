@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: LoScettro
+  m_EditorClassIdentifier: 
+  lkName: LoScettro
+  battleIcon: {fileID: 0}
+  verse: {fileID: 0}
+  lType: 0
+  weaknessTypes: 08000000
+  attacks:
+  - {fileID: 11400000, guid: cae5b38f0521f5848b15a2a696940836, type: 2}
+  - {fileID: 11400000, guid: 4cf631a4e97a2ae4689c6a576f99256f, type: 2}
+  - {fileID: 11400000, guid: e554996e69249e844a8d739c6abb02a3, type: 2}
+  - {fileID: 11400000, guid: ca4a8073be99fd944acd2e186065695c, type: 2}
+  startingLife: 100
+  startingSpeed: 50
+  startingAttack: 50
+  startingDefense: 50

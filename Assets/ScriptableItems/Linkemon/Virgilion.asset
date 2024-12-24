@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Virgilion
+  m_EditorClassIdentifier: 
+  lkName: Virgilion
+  battleIcon: {fileID: 21300000, guid: 973da39ccdca99141922898448629fea, type: 3}
+  verse: {fileID: 0}
+  lType: 2
+  weaknessTypes: 0400000003000000
+  attacks:
+  - {fileID: 11400000, guid: a1c3f92cb1c408d4ba60e7006e4f2d2e, type: 2}
+  - {fileID: 11400000, guid: 8264e946b6023694e81d3e36bb5843c7, type: 2}
+  - {fileID: 11400000, guid: c0d53c604a51abd4fb6719b71b955051, type: 2}
+  - {fileID: 11400000, guid: dd3c126c360590f4cb8bee27a5180be0, type: 2}
+  startingLife: 420
+  startingSpeed: 80
+  startingAttack: 60
+  startingDefense: 45
