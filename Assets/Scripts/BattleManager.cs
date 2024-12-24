@@ -218,7 +218,7 @@ public class BattleManager : MonoBehaviour
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
             {
-                if (l.CurrentLife >= 0)
+                if (l.CurrentLife > 0)
                 {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
                     yield return new WaitForSeconds(0.7f);
@@ -283,7 +283,7 @@ public class BattleManager : MonoBehaviour
             List<Linkemon> list = currentOpponent.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
             {
-                if (l.CurrentLife >= 0)
+                if (l.CurrentLife > 0)
                 {
                     yield return StartCoroutine(ChangeOpponentLinkemon(l));
                     yield return new WaitForSeconds(0.7f);
@@ -311,7 +311,7 @@ public class BattleManager : MonoBehaviour
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
             {
-                if (l.CurrentLife >= 0)
+                if (l.CurrentLife > 0)
                 {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
                     yield return new WaitForSeconds(0.7f);
@@ -396,7 +396,7 @@ public class BattleManager : MonoBehaviour
             List<Linkemon> list = player.GetComponent<LinkemonTrainer>().GetLinkemonList();
             foreach (Linkemon l in list)
             {
-                if (l.CurrentLife >= 0)
+                if (l.CurrentLife > 0)
                 {
                     yield return StartCoroutine(ChangePlayerLinkemon(l));
                     yield return new WaitForSeconds(0.7f);

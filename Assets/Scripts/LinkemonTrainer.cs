@@ -12,6 +12,7 @@ public class LinkemonTrainer : MonoBehaviour
     [SerializeField] private GameObject exclamationMarkRef;
     [SerializeField] private List<LinkemonScriptable> startingLinkemonScriptables;
     [SerializeField] private bool isNPC = false;
+    [SerializeField] private bool isFinalBoss = false;
     [SerializeField] private float detectingDistance = 10f;
 
     [TextArea(20, 30)]
@@ -153,7 +154,10 @@ public class LinkemonTrainer : MonoBehaviour
         }
         
         DialogueManager.instance.DestroyMessage();
-        plTrainer.GetComponent<PlayerController2D>().CanMove = true;
+        if (isFinalBoss)
+            GameManager.instance.ShowVictory();
+        else
+            plTrainer.GetComponent<PlayerController2D>().CanMove = true;
     }
     public List<Linkemon> GetLinkemonList()
     {

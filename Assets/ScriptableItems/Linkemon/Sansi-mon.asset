@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Sansi-mon
   battleIcon: {fileID: 21300000, guid: acadd372023bc1649a5e0a7624c3395b, type: 3}
-  verse: {fileID: 0}
+  verse: {fileID: 8300000, guid: 3785ab402d7c2204ba3c52721c39a735, type: 3}
   lType: 1
   weaknessTypes: 00000000
   attacks:

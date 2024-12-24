@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: CBReNdgar
   battleIcon: {fileID: 21300000, guid: d29168c73b6666f4298e7fdefeb22f9b, type: 3}
-  verse: {fileID: 0}
+  verse: {fileID: 8300000, guid: 23e73baf33683a340b6c9bd484caceff, type: 3}
   lType: 0
   weaknessTypes: 08000000
   attacks:
@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: edd0e84b12eb113438964e29bff97705, type: 2}
   - {fileID: 11400000, guid: be3ebdc76c5579744b0244e35f071f90, type: 2}
   - {fileID: 11400000, guid: b7430ade1d75a9740942106456f5b245, type: 2}
-  startingLife: 80
+  startingLife: 120
   startingSpeed: 10
   startingAttack: 50
   startingDefense: 50
