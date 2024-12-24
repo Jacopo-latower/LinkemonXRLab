@@ -6,14 +6,14 @@ public class EvolutionUI : MonoBehaviour
 {
     public Animator anim;
 
-    public void StartEvolution()
+    public void StartEvolution(LinkemonScriptable l1, LinkemonScriptable l2)
     {
-        StartCoroutine(EvolCoroutine());
+        StartCoroutine(EvolCoroutine(l1, l2));
     }
 
-    IEnumerator EvolCoroutine()
+    IEnumerator EvolCoroutine(LinkemonScriptable l1, LinkemonScriptable l2)
     {
-        DialogueManager.instance.ShowMessage("BITIDILE si sta evolvendo!");
+        DialogueManager.instance.ShowMessage( l1.lkName + " si sta evolvendo!");
 
         yield return new WaitForSeconds(2f);
 
@@ -21,9 +21,9 @@ public class EvolutionUI : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
 
-        DialogueManager.instance.ShowMessage("Bitidile si è evoluto in CROCOBITE!");
+        DialogueManager.instance.ShowMessage(l1.lkName + " si è evoluto in " + l2.lkName + "!");
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController2D>().CanMove = true;
 

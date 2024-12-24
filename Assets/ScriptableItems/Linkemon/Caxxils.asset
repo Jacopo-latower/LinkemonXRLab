@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Caxxils
   battleIcon: {fileID: 21300000, guid: 29bc0bb6f681ab340b30c1e9a4edc4f7, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 0}
   lType: 6
-  weaknessTypes: 04000000
+  weaknessTypes: 040000000a000000
   attacks:
   - {fileID: 11400000, guid: 632ae0358afc3274db46fbaa0f555389, type: 2}
   - {fileID: 11400000, guid: 98c3811571603c444b845519f384ccf6, type: 2}
   - {fileID: 11400000, guid: 22326e6a9c1020b41b1d0fcbfeb221c5, type: 2}
   - {fileID: 11400000, guid: 2090356f0b5ac48448e008a1664bfd9b, type: 2}
-  startingLife: 60
+  startingLife: 70
   startingSpeed: 100
   startingAttack: 20
   startingDefense: 35

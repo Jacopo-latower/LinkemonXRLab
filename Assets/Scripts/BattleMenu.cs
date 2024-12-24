@@ -15,6 +15,7 @@ public class BattleMenu : MonoBehaviour
     private void Start()
     {
         currentLinkemon = BattleManager.instance.currentPlayerLinkemon;
+        backpackMenuButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ricarica Tot (ancora " + BattleManager.instance.CurrentRicaricaTot + ")";
     }
 
     public void OnChangeLinkemon(Linkemon linkemon)
@@ -24,11 +25,24 @@ public class BattleMenu : MonoBehaviour
         foreach (LinkemonAttack at in atks)
         {
             int capturedIndex = i; // Crea una copia locale
-            attacksUIButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = at.attackName;
+            attacksUIButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = at.attackName + " (" + linkemon.CurrentPpPerAttack[i] + "/" + at.ppValue +")";
             attacksUIButtons[i].GetComponent<Button>().onClick.AddListener(delegate { OnPlayerAttack(capturedIndex); });
             Debug.Log(i);
             i++;
         }
+        currentLinkemon = linkemon;
+    }
+
+    public void OnMovePPChange(int index)
+    {
+        attacksUIButtons[index].GetComponentInChildren<TextMeshProUGUI>().text = currentLinkemon.attackList[index].attackName + 
+            " (" + currentLinkemon.CurrentPpPerAttack[index] + "/" + currentLinkemon.attackList[index].ppValue + ")";
+    }
+
+    public void OnTotalRecharge()
+    {
+        BattleManager.instance.OnPlayerRicaricaTot();
+        backpackMenuButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ricarica Tot (ancora " + BattleManager.instance.CurrentRicaricaTot + ")";
     }
 
     public void OnPlayerAttack(int attackIndex)

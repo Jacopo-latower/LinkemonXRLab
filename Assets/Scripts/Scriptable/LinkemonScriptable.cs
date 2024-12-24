@@ -6,6 +6,7 @@ public class LinkemonScriptable : ScriptableObject
 {
     public string lkName;
     public Sprite battleIcon;
+    public Sprite evolIcon;
     public AudioClip verse;
 
     public Linkemon.LinkemonType lType;

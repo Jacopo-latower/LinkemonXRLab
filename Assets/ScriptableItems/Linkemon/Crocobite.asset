@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Crocobite
   battleIcon: {fileID: 21300000, guid: d0af26d58d2699f4b816b60cc743d142, type: 3}
+  evolIcon: {fileID: 21300000, guid: 1de9a918c5cc30b42be4ba3c09dbd8eb, type: 3}
   verse: {fileID: 0}
   lType: 3
   weaknessTypes: 0400000005000000

@@ -144,7 +144,6 @@ public class LinkemonTrainer : MonoBehaviour
         if (rewardLinkemon != null)
         {
             plTrainer.AddLinkemon(rewardLinkemon);
-            plTrainer.RevitalizeAllLinkemon();
             DialogueManager.instance.ShowMessage("Hai ottenuto " + rewardLinkemon.lkName + "!");
             yield return new WaitForSeconds(0.5f);
             while (!Input.GetKeyDown(KeyCode.F))
@@ -152,8 +151,10 @@ public class LinkemonTrainer : MonoBehaviour
                 yield return null;
             }
         }
-        
+        plTrainer.RevitalizeAllLinkemon();
+
         DialogueManager.instance.DestroyMessage();
+
         if (isFinalBoss)
             GameManager.instance.ShowVictory();
         else

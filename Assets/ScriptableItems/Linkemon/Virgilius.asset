@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Virgilius
   battleIcon: {fileID: 21300000, guid: 41451d26cd00d1d4bbe96ea253ee298e, type: 3}
+  evolIcon: {fileID: 21300000, guid: c7cf179c97758fe459b5b4c7895865b6, type: 3}
   verse: {fileID: 8300000, guid: b0e376c3d66461046897f6897524a4bd, type: 3}
   lType: 6
   weaknessTypes: 04000000

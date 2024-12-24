@@ -25,4 +25,4 @@ MonoBehaviour:
   startingLife: 120
   startingSpeed: 10
   startingAttack: 50
-  startingDefense: 50
+  startingDefense: 35

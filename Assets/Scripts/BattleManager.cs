@@ -46,16 +46,23 @@ public class BattleManager : MonoBehaviour
     [Header("Audios")]
     public AudioSource battleMusic;
 
+    [Header("Items")] //Per ora solo ricarica tot e lo mettiamo qui -> 3xBattle
+    public int ricaricaTotNum = 3;
+
+    private int currentRicaricaTot;
     private GameObject player;
     private GameObject currentOpponent;
     private bool isStartingSequenceFinished = false;
     private bool antiSpamAttack = false;
 
-    [Header("Debug")]
-    public LinkemonTrainer testOppo;
+    public int CurrentRicaricaTot { get => currentRicaricaTot; }
+
+    //[Header("Debug")]
+    //public LinkemonTrainer testOppo;
     public void StartBattle(LinkemonTrainer opponent)
     {
         //Set Player Icon
+        currentRicaricaTot = ricaricaTotNum;
         player = GameObject.FindGameObjectWithTag("Player");
         playerContainer.GetComponentInChildren<Image>().sprite = player.GetComponent<LinkemonTrainer>().TrainerIcon;
         //Set Number of Linkemon into the container (instatiate linkeball for each linkemon of the player)
@@ -92,24 +99,111 @@ public class BattleManager : MonoBehaviour
             return;
         StartCoroutine(AntiSpamAttackCoroutine());
 
-        //Hide Menu
+        //can attack?
+        if (currentPlayerLinkemon.CurrentPpPerAttack[attackIndex] <= 0)
+        {
+            Debug.Log("PP Esauriti per questa mossa!");
+            StartCoroutine(CannotAttackMessageCoroutine());
+            return;
+        }
+
+        //Update PP
+        Debug.Log("Current Attack PP for " + currentPlayerLinkemon.attackList[attackIndex].attackName + " = " + currentPlayerLinkemon.CurrentPpPerAttack[attackIndex]);
+        currentPlayerLinkemon.CurrentPpPerAttack[attackIndex]--;
+        Debug.Log("Remaining Attack PP for " + currentPlayerLinkemon.attackList[attackIndex].attackName + " = " + currentPlayerLinkemon.CurrentPpPerAttack[attackIndex]);
+
+        //Update and Hide Menu
+        attacksMenu.GetComponent<BattleMenu>().OnMovePPChange(attackIndex);
         attacksMenu.SetActive(false);
 
         //Calculate Speed
         int totalPlayerSpeed = currentPlayerLinkemon.CurrentSpeed + currentPlayerLinkemon.attackList[attackIndex].attackSpeed;
         int totalOppoSpeed = currentOpponentLinkemon.CurrentSpeed + currentOpponentLinkemon.attackList[attackIndex].attackSpeed;
 
-        if (totalOppoSpeed > totalPlayerSpeed) 
+        //Opponent NPC Attack Choice Handling (FACCIAMO SOLO IN MODO CHE NON RIMANGANO SENZA PP ALMENO PER UNA MOSSA SENNO' CRASHA
+        bool flagAllEmpty = true;
+        for(int i = 0; i < currentOpponentLinkemon.CurrentPpPerAttack.Count; i++)
         {
-            //OppoAttackFirst
-            StartCoroutine(HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon, attackIndex));
+            if (currentOpponentLinkemon.CurrentPpPerAttack[i] > 0)
+            {
+                flagAllEmpty = false;
+                break;
+            }
+        }
+        int npcAttackChoice = -1;
+
+        //Se l'opponent può attaccare
+        if (!flagAllEmpty)
+        {
+            npcAttackChoice = Random.Range(0, 3);
+            int remainingMovePP = currentOpponentLinkemon.CurrentPpPerAttack[npcAttackChoice];
+            while (remainingMovePP <= 0)
+            {
+                npcAttackChoice = Random.Range(0, 3);
+                remainingMovePP = currentOpponentLinkemon.CurrentPpPerAttack[npcAttackChoice];
+            }
+            currentOpponentLinkemon.CurrentPpPerAttack[npcAttackChoice]--;
+
+
+            if (totalOppoSpeed > totalPlayerSpeed)
+            {
+                //OppoAttackFirst
+                StartCoroutine(HandleBattle(currentOpponentLinkemon, npcAttackChoice, currentPlayerLinkemon, attackIndex));
+            }
+            else
+            {
+                //PlayerAttackFirst
+                StartCoroutine(HandleBattle(currentPlayerLinkemon, attackIndex, currentOpponentLinkemon, npcAttackChoice));
+            }
         }
         else
         {
-            //PlayerAttackFirst
-            StartCoroutine(HandleBattle(currentPlayerLinkemon, attackIndex, currentOpponentLinkemon, Random.Range(0, 3)));
+            //Attacca solo il player se l'opponent non può attaccare
+            StartCoroutine(HandleBattle(currentPlayerLinkemon, attackIndex, currentOpponentLinkemon));
         }
 
+    }
+
+    IEnumerator CannotAttackMessageCoroutine()
+    {
+        DialogueManager.instance.ShowMessage("Hai finito i PP per questa mossa!");
+        yield return new WaitForSeconds(1.5f);
+        DialogueManager.instance.DestroyMessage();
+    }
+
+    public void OnPlayerRicaricaTot()
+    {
+        StartCoroutine(OnPlayerRicaricaTotAction());
+    }
+
+    IEnumerator OnPlayerRicaricaTotAction()
+    {
+        if (currentRicaricaTot>0)
+        {
+            //Current Linkemon Recharge Full Life
+            Debug.Log("FULL Recharging Life");
+            currentPlayerLinkemon.TotalRecharge();
+            currentRicaricaTot--;
+            DialogueManager.instance.ShowMessage(currentPlayerLinkemon.linkemonName + " torna più in forma che mai!");
+            Debug.Log("Current Ricarica Tot: " + currentRicaricaTot);
+            attacksMenu.GetComponent<BattleMenu>().OnMovePPChange(0);
+            attacksMenu.GetComponent<BattleMenu>().OnMovePPChange(1);
+            attacksMenu.GetComponent<BattleMenu>().OnMovePPChange(2);
+            attacksMenu.GetComponent<BattleMenu>().OnMovePPChange(3);
+
+            yield return new WaitForSeconds(1.5f);
+            DialogueManager.instance.DestroyMessage();
+
+            //Oppo turn part
+            Debug.Log("Executing Handle Battle");
+            yield return StartCoroutine(HandleBattle(currentOpponentLinkemon, Random.Range(0, 3), currentPlayerLinkemon));
+        }
+        else
+        {
+            DialogueManager.instance.ShowMessage("Non hai più Ricarica TOT!");
+            yield return new WaitForSeconds(1.5f);
+            DialogueManager.instance.DestroyMessage();
+        }
     }
 
     public void OnPlayerChangeLinkemon(Linkemon lk)
@@ -167,7 +261,7 @@ public class BattleManager : MonoBehaviour
             {
                 //AttackHandling
                 yield return StartCoroutine(AttackHandling(first, second, firstAttackIndex));
-                if (CheckOpponentLinkemon()) hit = strikes;
+                if (CheckLinkemonDead(second)) hit = strikes;
                 yield return new WaitForSeconds(.5f);
                 hit++;
             }
@@ -259,7 +353,7 @@ public class BattleManager : MonoBehaviour
             {
                 //AttackHandling
                 yield return StartCoroutine(AttackHandling(second, first, secondAttackIndex));
-                if (CheckOpponentLinkemon()) hit = strikes;
+                if (CheckLinkemonDead(first)) hit = strikes;
                 yield return new WaitForSeconds(.5f);
                 hit++;
             }
@@ -335,7 +429,7 @@ public class BattleManager : MonoBehaviour
         attacksMenu.SetActive(true);
     }
 
-    //IF Player does not attack, only the opponent attacks
+    //IF Player/Opponent does not attack, only the opponent/player attacks
     IEnumerator HandleBattle(Linkemon first, int firstAttackIndex, Linkemon second)
     {
         Debug.Log("HANDLE SINGLE BATTLE CALLED");
@@ -447,6 +541,14 @@ public class BattleManager : MonoBehaviour
     bool CheckOpponentLinkemon()
     {
         if (currentOpponentLinkemon.CurrentLife <= 0f)
+            return true;
+        else
+            return false;
+    }
+
+    bool CheckLinkemonDead(Linkemon lk)
+    {
+        if (lk.CurrentLife <= 0f)
             return true;
         else
             return false;

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
+  m_Name: Shyxcel
+  m_EditorClassIdentifier: 
+  lkName: Shyxcel
+  battleIcon: {fileID: 21300000, guid: 2bdea82532069184ba8e93638111f520, type: 3}
+  verse: {fileID: 0}
+  lType: 9
+  weaknessTypes: 08000000
+  attacks:
+  - {fileID: 11400000, guid: 6a4df1efaf573ab4eb5e44e80401ad11, type: 2}
+  - {fileID: 11400000, guid: 78d7ad889ab64624ea2db38c6e61e937, type: 2}
+  - {fileID: 11400000, guid: a2245b25f3019ad4ebd01440f992d551, type: 2}
+  - {fileID: 11400000, guid: 8694eec4a622b7c419d232101101524e, type: 2}
+  startingLife: 150
+  startingSpeed: 30
+  startingAttack: 40
+  startingDefense: 25
