@@ -15,7 +15,7 @@ MonoBehaviour:
   attackName: I NANI! I NANI! I NANI!
   attackGenre: 0
   attackType: 0
-  value: 15
+  value: 25
   attackSpeed: 35
   strikesNum: 3
   successValue: 0.8

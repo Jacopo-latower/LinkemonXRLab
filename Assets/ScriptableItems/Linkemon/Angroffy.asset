@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a96e9fe1efef7a4db51c98b89eb916d, type: 3}
-  m_Name: Angroffe
+  m_Name: Angroffy
   m_EditorClassIdentifier: 
-  lkName: Angroffe
+  lkName: Angroffy
   battleIcon: {fileID: 21300000, guid: dcdb8518628d1614bb5b6f0684c4d663, type: 3}
   evolIcon: {fileID: 0}
   verse: {fileID: 0}
@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8264e946b6023694e81d3e36bb5843c7, type: 2}
   - {fileID: 11400000, guid: 82acb7e1558b1c041b71ad6b7280f949, type: 2}
   - {fileID: 11400000, guid: 1b4e658e23f5c6b45b137f5b6ff21484, type: 2}
-  startingLife: 200
+  startingLife: 250
   startingSpeed: 40
   startingAttack: 50
-  startingDefense: 30
+  startingDefense: 35

@@ -986,6 +986,7 @@ public class BattleManager : MonoBehaviour
         currentOpponentLinkemon = null;
 
         SoundManager.instance.PlayMusic(SoundManager.instance.mainTheme);
+        player.GetComponent<PlayerController2D>().CanMove = true;
     }
 
     void OnPlayerVictory()
