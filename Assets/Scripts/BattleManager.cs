@@ -662,6 +662,12 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.Attack:
                 if (CheckCap(attack, attacker))
                 {
+                    //Animation
+                        attacker.GetComponent<Animator>().SetBool("StatIncrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                        attacker.GetComponent<Animator>().SetBool("StatIncrease", false);
+
+                    //DMG Calculation
                     attacker.CurrentAttack += attack.value;
                     DialogueManager.instance.ShowMessage("Attacco di " + attacker.linkemonName + " aumenta!");
                 }
@@ -671,6 +677,12 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.Defense:
                 if (CheckCap(attack, attacker))
                 {
+                    //Animation
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", false);
+
+                    //DMG Calculation
                     attacker.CurrentDefense += attack.value;
                     DialogueManager.instance.ShowMessage("Difesa di " + attacker.linkemonName + " aumenta!");
                 }
@@ -680,6 +692,12 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.Elusion:
                 if (CheckCap(attack, attacker))
                 {
+                    //Animation
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", false);
+
+                    //DMG Calculation
                     attacker.CurrentElusion += attack.value;
                     DialogueManager.instance.ShowMessage("Elusione di " + attacker.linkemonName + " aumenta!");
                 }
@@ -689,6 +707,12 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.Speed:
                 if (CheckCap(attack, attacker))
                 {
+                    //Animation
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    attacker.GetComponent<Animator>().SetBool("StatIncrease", false);
+
+                    //DMG Calculation
                     attacker.CurrentSpeed += attack.value;
                     DialogueManager.instance.ShowMessage("Velocità di " + attacker.linkemonName + " aumenta!");
                 }
@@ -697,7 +721,23 @@ public class BattleManager : MonoBehaviour
 
             case LinkemonAttack.LinkemonAttackGenre.OpponentAttack:
                 if (CheckCap(attack, defender))
-                {
+                {                
+                    //Animation
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", true);
+                    yield return new WaitForSeconds(0.4f);
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", false);
+
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", false);
+                    //DMG Calculation
+
                     defender.CurrentAttack -= attack.value;
                     if (defender.CurrentAttack < 0) defender.CurrentAttack = 1;
                     DialogueManager.instance.ShowMessage("Attacco di " + defender.linkemonName + " cala!");
@@ -708,6 +748,21 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.OpponentDefense:
                 if (CheckCap(attack, defender))
                 {
+                    //Animation
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", true);
+                    yield return new WaitForSeconds(0.4f);
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", false);
+
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", false);
+                    //DMG Calculation
                     defender.CurrentDefense -= attack.value;
                     if (defender.CurrentDefense < 0) defender.CurrentDefense = 1;
                     DialogueManager.instance.ShowMessage("Difesa di " + defender.linkemonName + " cala!");
@@ -718,6 +773,21 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.OpponentElusion:
                 if (CheckCap(attack, defender))
                 {
+                    //Animation
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", true);
+                    yield return new WaitForSeconds(0.4f);
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", false);
+
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", false);
+                    //DMG Calculation
                     defender.CurrentElusion -= attack.value;
                     if (defender.CurrentElusion < 0) defender.CurrentElusion = 1;
                     DialogueManager.instance.ShowMessage("Elusione di " + defender.linkemonName + " cala!");
@@ -728,6 +798,21 @@ public class BattleManager : MonoBehaviour
             case LinkemonAttack.LinkemonAttackGenre.OpponentSpeed:
                 if (CheckCap(attack, defender))
                 {
+                    //Animation
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", true);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", true);
+                    yield return new WaitForSeconds(0.4f);
+                    if (attacker.Trainer.name == "Player")
+                        attacker.GetComponent<Animator>().SetBool("PlayerAttack", false);
+                    else
+                        attacker.GetComponent<Animator>().SetBool("Attacking", false);
+
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", true);
+                    yield return new WaitForSeconds(1.3f);
+                    defender.GetComponent<Animator>().SetBool("StatDecrease", false);
+                    //DMG Calculation
                     defender.CurrentSpeed -= attack.value;
                     if (defender.CurrentSpeed < 0) defender.CurrentSpeed = 1;
                     DialogueManager.instance.ShowMessage("Velocità di " + defender.linkemonName + " cala!");
@@ -736,6 +821,12 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case LinkemonAttack.LinkemonAttackGenre.RestoreHealth:
+                //Animation
+                attacker.GetComponent<Animator>().SetBool("StatIncrease", true);
+                yield return new WaitForSeconds(1.3f);
+                attacker.GetComponent<Animator>().SetBool("StatIncrease", false);
+
+                //DMG Calculation
                 attacker.RestoreHealth(attack.value);
                 DialogueManager.instance.ShowMessage(attacker.linkemonName + " recupera salute!");
                 yield return new WaitForSeconds(1.5f);
