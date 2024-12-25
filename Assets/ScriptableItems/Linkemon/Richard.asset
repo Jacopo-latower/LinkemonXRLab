@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Richard
   battleIcon: {fileID: 21300000, guid: 332a8ef819e300c439e9b53928d9d15a, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 8300000, guid: bd8963a7bb1533d49971c35ea88dd4b8, type: 3}
   lType: 0
   weaknessTypes: 08000000
@@ -22,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25f99de29ce347149bf8e914b64ebc81, type: 2}
   - {fileID: 11400000, guid: ca2e6eaafe45b7e49a4a18705a7cd29b, type: 2}
   - {fileID: 11400000, guid: 051e3bac537d2a149b13a0ee147d2ee5, type: 2}
-  startingLife: 350
-  startingSpeed: 25
-  startingAttack: 55
+  startingLife: 400
+  startingSpeed: 20
+  startingAttack: 60
   startingDefense: 60

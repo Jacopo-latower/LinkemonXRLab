@@ -15,7 +15,8 @@ MonoBehaviour:
   attackName: Perforcolpo
   attackGenre: 0
   attackType: 6
-  value: 75
+  value: 60
   attackSpeed: 75
   strikesNum: 1
   successValue: 0.55
+  ppValue: 10

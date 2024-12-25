@@ -2273,7 +2273,7 @@ PrefabInstance:
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+      objectReference: {fileID: 11400000, guid: f139427e87ff47943a13ad951801dc0f, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[3]
       value: 
@@ -4518,7 +4518,7 @@ PrefabInstance:
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: e01c46c932c7d4b4f861b88719cc2c70, type: 2}
+      objectReference: {fileID: 11400000, guid: 60b36abff7b570f4883bdd37ed7b9c6a, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[3]
       value: 
@@ -4863,7 +4863,7 @@ PrefabInstance:
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+      objectReference: {fileID: 11400000, guid: e01c46c932c7d4b4f861b88719cc2c70, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
@@ -6733,7 +6733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f913ffbd6c8784644962d8a0413374d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryUI: {fileID: 0}
+  victoryUI: {fileID: 1928598429}
 --- !u!1 &976794943
 GameObject:
   m_ObjectHideFlags: 0
@@ -7279,7 +7279,7 @@ PrefabInstance:
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
+      objectReference: {fileID: 11400000, guid: 285864ac0eb3ee044b2ecec281276d1c, type: 2}
     - target: {fileID: 7370710318228654247, guid: f17d26ebb7ceca54e820119438a49271, type: 3}
       propertyPath: startingLinkemonScriptables.Array.data[2]
       value: 
@@ -12628,6 +12628,7 @@ MonoBehaviour:
   exclamationMarkRef: {fileID: 7038945287069088458}
   startingLinkemonScriptables:
   - {fileID: 11400000, guid: 61ac32e8e066abb4d99e7fad55360216, type: 2}
+  - {fileID: 11400000, guid: 2205ca206d84d494c90e6d0d8320533d, type: 2}
   - {fileID: 11400000, guid: 929eea173cf9f95478ff13e6d3071d84, type: 2}
   - {fileID: 11400000, guid: e77d78024f9b8ea45b0f459d5d2fbf22, type: 2}
   isNPC: 1
@@ -12636,11 +12637,11 @@ MonoBehaviour:
   dialogue: "Nik: Che ne pensi di Genshin Impact, facciamo un po' di quest?\r\n\rRik:
     Scaricati Vampire Survivors e poi Balatro, presto!"
   endBattledialogue: '(NIK&RIK) Vedo la stanza a 360... '
-  rewardDialogue: 'Nik: Mi piace come giochi, prendi il nostro 360.
+  rewardDialogue: 'Nik: Mi piace come giochi, che ne dici di aiutarci?
 
-    Rik: Per
-    il prossimo virtual tour potremmo portarti con noi a fare le riprese. Ma prima
-    devi battere il temibile Head of XR Lab'
+    Rik:
+    Per il prossimo virtual tour potremmo portarti con noi a fare le riprese. Ma
+    prima devi battere il temibile Head of XR Lab'
   currentInstantiatedLinkemons: []
   linkemonListParent: {fileID: 6545145963261218109}
 --- !u!1 &7985752193012864508

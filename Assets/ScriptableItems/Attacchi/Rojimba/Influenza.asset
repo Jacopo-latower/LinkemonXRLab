@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Influenza
   m_EditorClassIdentifier: 
   attackName: Influenza
-  attackGenre: 5
+  attackGenre: 0
   attackType: 9
-  value: 5
+  value: 10
   attackSpeed: 10
-  strikesNum: 1
-  successValue: 1
-  ppValue: 30
+  strikesNum: 5
+  successValue: 0.8
+  ppValue: 10

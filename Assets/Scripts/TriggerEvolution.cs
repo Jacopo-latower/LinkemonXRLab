@@ -33,7 +33,7 @@ public class TriggerEvolution : MonoBehaviour
         player.GetComponent<PlayerController2D>().CanMove = false;
         lk1NormUI.GetComponent<Image>().sprite = linkemonToRemove.battleIcon;
         lk2NormUI.GetComponent<Image>().sprite = linkemonToAdd.battleIcon;
-        lk1EvolUI.GetComponent<Image>().sprite = linkemonToAdd.evolIcon;
+        lk1EvolUI.GetComponent<Image>().sprite = linkemonToRemove.evolIcon;
         lk2EvolUI.GetComponent<Image>().sprite = linkemonToAdd.evolIcon;
         yield return new WaitForSeconds(2f);
 

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: Rojimba
   battleIcon: {fileID: 21300000, guid: 645e261bc21df044c97194a1d54ac35a, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 8300000, guid: a2fa2994ca5b833459ba8ddd4872b8bc, type: 3}
   lType: 8
   weaknessTypes: 0600000001000000
@@ -22,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a92b8aca732db994f8eef3ef64491bbf, type: 2}
   - {fileID: 11400000, guid: a662c55288e250b43811f0e0491d0522, type: 2}
   - {fileID: 11400000, guid: 20d03f686defcbd4083c1a25c1033be4, type: 2}
-  startingLife: 200
+  startingLife: 220
   startingSpeed: 50
   startingAttack: 50
   startingDefense: 60
