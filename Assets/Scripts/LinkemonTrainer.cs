@@ -32,6 +32,11 @@ public class LinkemonTrainer : MonoBehaviour
     private bool alreadyMetPlayer = false;
 
     public bool Defeated { get => defeated; }
+
+    public LinkemonTrainer (string _name)
+    {
+        trainerName = _name;
+    }
     private void Start()
     {
         foreach(LinkemonScriptable lk in startingLinkemonScriptables)
