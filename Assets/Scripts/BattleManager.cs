@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using static Linkemon;
@@ -57,10 +56,14 @@ public class BattleManager : MonoBehaviour
 
     public int CurrentRicaricaTot { get => currentRicaricaTot; }
 
+    private bool isSelvatico = false;
+
     //[Header("Debug")]
     //public LinkemonTrainer testOppo;
     public void StartBattle(LinkemonTrainer opponent)
     {
+        isSelvatico = false;
+
         //Set Player Icon
         currentRicaricaTot = ricaricaTotNum;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -81,6 +84,7 @@ public class BattleManager : MonoBehaviour
         //Set Opponent Icon
         opponentContainer.GetComponentInChildren<Image>().sprite = opponent.GetComponent<LinkemonTrainer>().TrainerIcon;
         int oppoLmNum = opponent.GetLinkemonList().Count;
+        linkemonNumberContainerOpp.SetActive(true);
         for (int i = 0; i < oppoLmNum; i++)
         {
             Instantiate(linkeballSprite, linkemonNumberContainerOpp.transform);
@@ -91,6 +95,36 @@ public class BattleManager : MonoBehaviour
         //TODO: starting sequence
         battleGroup.SetActive(true);
         StartCoroutine(BattleStartSequence());
+    }
+    public void StartBattle(LinkemonSelvatico opponent)
+    {
+        isSelvatico = true;
+
+        //Set Player Icon
+        currentRicaricaTot = ricaricaTotNum;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerContainer.GetComponentInChildren<Image>().sprite = player.GetComponent<LinkemonTrainer>().TrainerIcon;
+        //Set Number of Linkemon into the container (instatiate linkeball for each linkemon of the player)
+        int plLmNum = player.GetComponent<LinkemonTrainer>().GetLinkemonList().Count;
+        Debug.Log(plLmNum);
+        for (int i = 0; i < plLmNum; i++)
+        {
+            Instantiate(linkeballSprite, linkemonNumberContainerPl.transform);
+            Linkemon lk = player.GetComponent<LinkemonTrainer>().GetLinkemonList()[i];
+            GameObject row = Instantiate(linkemonUIRowPrefab, linkemonListContainerPl.transform);
+            row.GetComponent<LinkemonUIRow>().SetIcon(lk.battleIcon);
+            row.GetComponent<LinkemonUIRow>().SetName(lk.linkemonName);
+            row.GetComponent<LinkemonUIRow>().linkemon = lk.gameObject;
+        }
+
+        //Set Opponent Icon
+        opponentContainer.GetComponentInChildren<Image>().sprite = opponent.GetComponent<LinkemonSelvatico>().linkemon.battleIcon;
+        linkemonNumberContainerOpp.SetActive(false);
+        currentOpponent = opponent.gameObject;
+
+        //TODO: starting sequence
+        battleGroup.SetActive(true);
+        StartCoroutine(BattleStartSequence_Selvatico());
     }
 
     public void OnPlayerAttack(int attackIndex)
@@ -810,6 +844,7 @@ public class BattleManager : MonoBehaviour
     {
         playerContainer.GetComponent<CanvasGroup>().alpha = 1f;
         opponentContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        opponentContainer.SetActive(true);
 
         battleStartGlow.SetActive(true);
         yield return new WaitForSeconds(2f);
@@ -877,11 +912,91 @@ public class BattleManager : MonoBehaviour
         currentOpponent.GetComponent<LinkemonTrainer>().OnDefeat();
     }
 
+    IEnumerator BattleStartSequence_Selvatico()
+    {
+        playerContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        opponentContainer.GetComponent<CanvasGroup>().alpha = 1f;
+        opponentContainer.SetActive(false);
+
+        opponentLinkemonContainer.SetActive(true);
+
+        battleStartGlow.SetActive(true);
+        yield return new WaitForSeconds(2f);
+
+        Linkemon linkemon = currentOpponent.GetComponent<LinkemonSelvatico>().linkemon;
+        //Message
+        DialogueManager.instance.ShowMessage("Appare un " + linkemon.linkemonName + " selvatico!");
+
+        //battlefield appear
+        yield return StartCoroutine(FadeIn(battleFieldContainer.GetComponent<CanvasGroup>(), 1.5f));
+
+        //TODO: change this with some animation
+        yield return new WaitForSeconds(2f);
+        battleStartGlow.SetActive(false);
+        //Send in first linkemon
+        opponentContainer.SetActive(false);
+        opponentLinkemonContainer.SetActive(true);
+        //linkemon.gameObject.transform.parent = opponentLinkemonContainer.transform;
+        linkemon.gameObject.transform.SetParent(opponentLinkemonContainer.transform, false);
+        linkemon.OnEnterBattle();
+        currentOpponentLinkemon = linkemon;
+
+        yield return new WaitForSeconds(2.5f);
+
+        //Fade out player icon
+        yield return StartCoroutine(FadeOut(playerContainer.GetComponent<CanvasGroup>(), 1f));
+        //Send in first linkemon
+        DialogueManager.instance.ShowMessage("VAI! " + player.GetComponent<LinkemonTrainer>().GetLinkemonList()[0].linkemonName + "!");
+        yield return StartCoroutine(ChangePlayerLinkemon(player.GetComponent<LinkemonTrainer>().GetLinkemonList()[0]));
+
+        linkemonNumberContainerPl.SetActive(false);
+        DialogueManager.instance.DestroyMessage();
+        attacksMenu.SetActive(true);
+
+        isStartingSequenceFinished = true;
+    }
+
+    IEnumerator BattleEndSequence_Selvatico()
+    {
+        //Play Victory Music
+        //TODO:
+        DialogueManager.instance.ShowMessage(currentOpponent.GetComponent<LinkemonSelvatico>().linkemon.linkemonName + " avversario è esausto!");
+        yield return StartCoroutine(FadeIn(opponentContainer.GetComponent<CanvasGroup>(), 1f));
+        yield return new WaitForSeconds(1.5f);
+        attacksMenu.SetActive(false);
+        DialogueManager.instance.DestroyMessage();
+        yield return StartCoroutine(FadeOut(battleFieldContainer.GetComponent<CanvasGroup>(), 1.5f));
+        battleGroup.SetActive(false);
+        linkemonNumberContainerPl.SetActive(true);
+        linkemonNumberContainerOpp.SetActive(true);
+
+        //TODO:reset everything and exit battle
+        foreach (Transform t in linkemonNumberContainerOpp.transform)
+            Destroy(t.gameObject);
+
+        foreach (Transform t in linkemonNumberContainerPl.transform)
+            Destroy(t.gameObject);
+
+        foreach (Transform t in linkemonListContainerPl.transform)
+            Destroy(t.gameObject);
+
+        currentPlayerLinkemon.transform.SetParent(player.GetComponent<LinkemonTrainer>().linkemonListParent, false);
+
+        currentPlayerLinkemon = null;
+        currentOpponentLinkemon = null;
+
+        SoundManager.instance.PlayMusic(SoundManager.instance.mainTheme);
+    }
+
     void OnPlayerVictory()
     {
         
         Debug.Log("PLAYER WINS!");
-        StartCoroutine(BattleEndSequence());
+
+        if(isSelvatico) 
+            StartCoroutine(BattleEndSequence_Selvatico());
+        else 
+            StartCoroutine(BattleEndSequence());
     }
     void OnPlayerDefeat()
     {
