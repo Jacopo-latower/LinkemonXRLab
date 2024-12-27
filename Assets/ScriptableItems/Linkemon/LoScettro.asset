@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lkName: LoScettro
   battleIcon: {fileID: 21300000, guid: 0d455a25baca32040bf4128175440720, type: 3}
+  evolIcon: {fileID: 0}
   verse: {fileID: 0}
   lType: 0
   weaknessTypes: 08000000
@@ -22,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4cf631a4e97a2ae4689c6a576f99256f, type: 2}
   - {fileID: 11400000, guid: e554996e69249e844a8d739c6abb02a3, type: 2}
   - {fileID: 11400000, guid: ca4a8073be99fd944acd2e186065695c, type: 2}
-  startingLife: 100
+  startingLife: 200
   startingSpeed: 50
-  startingAttack: 50
+  startingAttack: 60
   startingDefense: 50
